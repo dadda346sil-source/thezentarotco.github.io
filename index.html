@@ -3,1334 +3,1007 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#050308">
 
-<title>The Zentarot Co. — Tarot · I Ching · Oracle · Sibille</title>
+<title>The Zentarot Co. — Tarot & Spiritual Readings</title>
+
+<meta name="description" content="The Zentarot Co. — Personal Tarot, I Ching, Oracle and Sibille readings. Since 2020.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
-:root{
-  --bg:#040207;
-  --panel:#0b0710;
-  --purple:#a65cff;
-  --purple2:#d2a1ff;
-  --text:#f8f3ff;
-  --muted:rgba(248,243,255,.58);
-  --line:rgba(210,170,255,.16);
-}
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 html{
-  scroll-behavior:smooth;
+    scroll-behavior:smooth;
 }
 
 body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:Inter,sans-serif;
-  overflow-x:hidden;
+    background:#05030a;
+    color:#fff;
+    font-family:Inter,sans-serif;
+    overflow-x:hidden;
 }
 
 a{
-  color:inherit;
-  text-decoration:none;
+    color:inherit;
+    text-decoration:none;
 }
 
 button{
-  font-family:inherit;
+    font-family:inherit;
 }
 
-::selection{
-  background:#9b4ee8;
-  color:white;
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-10;
+    background:
+        radial-gradient(circle at 50% 20%,rgba(112,55,190,.22),transparent 28%),
+        radial-gradient(circle at 15% 70%,rgba(70,20,130,.18),transparent 25%),
+        radial-gradient(circle at 85% 65%,rgba(160,80,220,.12),transparent 25%),
+        #05030a;
 }
 
-/* ==============================
-   GLOBAL ATMOSPHERE
-============================== */
-
-.noise{
-  position:fixed;
-  inset:0;
-  z-index:9998;
-  pointer-events:none;
-  opacity:.035;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+body:after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:100;
+    opacity:.08;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
 
-.ambient{
-  position:fixed;
-  inset:0;
-  z-index:-10;
-  background:
-    radial-gradient(circle at 50% 15%,rgba(120,50,180,.25),transparent 30%),
-    radial-gradient(circle at 0 70%,rgba(70,25,110,.2),transparent 30%),
-    radial-gradient(circle at 100% 50%,rgba(80,25,130,.16),transparent 30%),
-    #040207;
-}
+/* =========================================================
+   STARS
+========================================================= */
 
 .stars{
-  position:fixed;
-  inset:0;
-  z-index:-8;
-  background-image:
-    radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1.5px),
-    radial-gradient(circle,rgba(180,120,255,.5) 1px,transparent 1.5px);
-  background-size:100px 100px,170px 170px;
-  animation:starDrift 30s linear infinite;
-  opacity:.4;
+    position:fixed;
+    inset:0;
+    z-index:-5;
+    pointer-events:none;
 }
 
-@keyframes starDrift{
-  to{background-position:100px 100px,-170px -170px}
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:#fff;
+    border-radius:50%;
+    animation:twinkle 3s infinite ease-in-out;
 }
 
-#particles{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-4;
-  overflow:hidden;
+@keyframes twinkle{
+    0%,100%{opacity:.15;transform:scale(.6)}
+    50%{opacity:1;transform:scale(1.5)}
 }
 
-.particle{
-  position:absolute;
-  width:3px;
-  height:3px;
-  border-radius:50%;
-  background:#c78aff;
-  box-shadow:0 0 14px #a84fff;
-  animation:particleFloat linear infinite;
-}
-
-@keyframes particleFloat{
-  from{
-    transform:translate3d(0,110vh,0);
-    opacity:0;
-  }
-  15%{opacity:.9}
-  80%{opacity:.7}
-  to{
-    transform:translate3d(var(--drift),-15vh,0);
-    opacity:0;
-  }
-}
-
-/* ==============================
-   INTRO PORTAL
-============================== */
-
-#portal{
-  position:fixed;
-  inset:0;
-  z-index:10000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at center,#27103d 0%,#09050d 38%,#020104 78%);
-  transition:opacity 1.3s ease,visibility 1.3s ease;
-}
-
-#portal.closed{
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-}
-
-.portal-stars{
-  position:absolute;
-  inset:-20%;
-  background-image:
-    radial-gradient(circle,white 1px,transparent 1.5px);
-  background-size:75px 75px;
-  opacity:.35;
-  animation:portalStars 20s linear infinite;
-}
-
-@keyframes portalStars{
-  to{transform:rotate(8deg) scale(1.1)}
-}
-
-.portal-symbol{
-  position:absolute;
-  width:min(75vw,650px);
-  height:min(75vw,650px);
-  border-radius:50%;
-  border:1px solid rgba(210,160,255,.22);
-  animation:portalSpin 22s linear infinite;
-}
-
-.portal-symbol:before,
-.portal-symbol:after{
-  content:"";
-  position:absolute;
-  inset:9%;
-  border:1px dashed rgba(190,120,255,.35);
-  transform:rotate(45deg);
-}
-
-.portal-symbol:after{
-  inset:22%;
-  border-radius:50%;
-  transform:none;
-}
-
-.portal-symbol:nth-child(2){
-  width:min(55vw,470px);
-  height:min(55vw,470px);
-  animation-duration:14s;
-  animation-direction:reverse;
-}
-
-.portal-symbol:nth-child(3){
-  width:min(90vw,800px);
-  height:min(90vw,800px);
-  animation-duration:35s;
-  opacity:.45;
-}
-
-@keyframes portalSpin{
-  to{transform:rotate(360deg)}
-}
-
-.portal-orb{
-  width:135px;
-  height:135px;
-  border-radius:50%;
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  background:
-    radial-gradient(circle at 32% 25%,#fff 0%,#dcb5ff 6%,#a251e9 22%,#4b1970 52%,#100615 78%);
-  box-shadow:
-    0 0 35px #b15cff,
-    0 0 110px rgba(145,55,230,.75),
-    inset -30px -25px 45px rgba(0,0,0,.75);
-  animation:orbBreath 3s ease-in-out infinite;
-}
-
-@keyframes orbBreath{
-  50%{
-    transform:translate(-50%,-50%) scale(1.1);
-    box-shadow:
-      0 0 50px #c47aff,
-      0 0 150px rgba(145,55,230,.85);
-  }
-}
-
-.portal-content{
-  position:relative;
-  z-index:10;
-  text-align:center;
-}
-
-.portal-content h1{
-  font-family:Cinzel,serif;
-  font-size:clamp(28px,7vw,70px);
-  letter-spacing:8px;
-  text-shadow:0 0 35px rgba(205,150,255,.45);
-}
-
-.portal-content p{
-  margin:16px 0 30px;
-  font-size:9px;
-  letter-spacing:6px;
-  opacity:.55;
-}
-
-.enter-btn,
-.primary-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid rgba(220,180,255,.5);
-  border-radius:999px;
-  background:rgba(25,10,40,.6);
-  color:white;
-  padding:15px 27px;
-  font-size:9px;
-  letter-spacing:3px;
-  cursor:pointer;
-  transition:.4s;
-  backdrop-filter:blur(12px);
-}
-
-.enter-btn:hover,
-.primary-btn:hover{
-  background:#9349d2;
-  box-shadow:0 0 45px rgba(164,76,235,.6);
-  transform:translateY(-4px);
-}
-
-/* ==============================
-   SITE
-============================== */
-
-#site{
-  opacity:0;
-  transition:opacity 1.5s ease;
-}
-
-#site.active{
-  opacity:1;
-}
-
-/* ==============================
-   NAVIGATION
-============================== */
+/* =========================================================
+   NAV
+========================================================= */
 
 nav{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:900;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:21px 6%;
-  background:linear-gradient(to bottom,rgba(3,2,7,.9),transparent);
-  backdrop-filter:blur(5px);
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:50;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 6%;
+    backdrop-filter:blur(16px);
+    background:rgba(5,3,10,.45);
+    border-bottom:1px solid rgba(255,255,255,.06);
 }
 
 .logo{
-  font-family:Cinzel,serif;
-  font-size:13px;
-  letter-spacing:4px;
+    font-family:Cinzel,serif;
+    font-size:18px;
+    letter-spacing:4px;
 }
 
-.nav-links{
-  display:flex;
-  gap:30px;
+.logo span{
+    display:block;
+    font-family:Inter,sans-serif;
+    font-size:8px;
+    letter-spacing:5px;
+    opacity:.55;
+    margin-top:4px;
 }
 
-.nav-links a{
-  font-size:9px;
-  letter-spacing:2px;
-  opacity:.65;
-  transition:.3s;
+.nav-buy{
+    padding:11px 20px;
+    border:1px solid rgba(205,155,255,.45);
+    border-radius:100px;
+    font-size:11px;
+    letter-spacing:2px;
+    transition:.3s;
 }
 
-.nav-links a:hover{
-  opacity:1;
-  color:var(--purple2);
+.nav-buy:hover{
+    background:#fff;
+    color:#08050d;
+    box-shadow:0 0 30px rgba(190,110,255,.6);
 }
 
-/* ==============================
+/* =========================================================
    HERO
-============================== */
+========================================================= */
 
 .hero{
-  min-height:100svh;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  perspective:1200px;
-}
-
-.hero-core{
-  position:absolute;
-  width:min(65vw,620px);
-  height:min(65vw,620px);
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  pointer-events:none;
-}
-
-.ring{
-  position:absolute;
-  inset:0;
-  border:1px solid rgba(190,125,255,.15);
-  border-radius:50%;
-  animation:spin 28s linear infinite;
-}
-
-.ring:nth-child(2){
-  inset:12%;
-  border-style:dashed;
-  animation-duration:18s;
-  animation-direction:reverse;
-}
-
-.ring:nth-child(3){
-  inset:25%;
-  animation-duration:11s;
-}
-
-.ring:nth-child(4){
-  inset:-15%;
-  border-color:rgba(190,125,255,.07);
-  animation-duration:40s;
-}
-
-.ring-dot{
-  position:absolute;
-  top:-4px;
-  left:50%;
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#d2a1ff;
-  box-shadow:0 0 20px #b25aff;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg)}
-}
-
-.hero-orb{
-  position:absolute;
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  background:
-    radial-gradient(circle at 30% 25%,#fff,#d4a8ff 5%,#9544d0 20%,#401653 55%,#09030e 78%);
-  box-shadow:
-    0 0 30px #a74eff,
-    0 0 100px rgba(137,50,220,.6);
-  animation:heroOrb 4s ease-in-out infinite;
-}
-
-@keyframes heroOrb{
-  50%{transform:translate(-50%,-50%) scale(1.08)}
+    min-height:100vh;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+    padding:130px 20px 80px;
 }
 
 .hero-content{
-  position:relative;
-  z-index:20;
-  text-align:center;
-  padding:100px 20px 60px;
-  transition:transform .15s ease-out;
+    position:relative;
+    z-index:10;
+    max-width:900px;
 }
 
-.eyebrow{
-  font-size:9px;
-  letter-spacing:5px;
-  opacity:.5;
-  margin-bottom:24px;
+.since{
+    font-size:10px;
+    letter-spacing:6px;
+    color:#c9a5ff;
+    margin-bottom:25px;
+    animation:fadeUp 1.2s ease both;
 }
 
 .hero h1{
-  font-family:Cinzel,serif;
-  font-size:clamp(44px,10vw,105px);
-  line-height:.9;
-  letter-spacing:8px;
-  text-shadow:
-    0 0 30px rgba(194,130,255,.35),
-    0 0 100px rgba(115,40,190,.25);
+    font-family:Cinzel,serif;
+    font-size:clamp(48px,10vw,115px);
+    font-weight:500;
+    line-height:.9;
+    letter-spacing:8px;
+    text-shadow:
+        0 0 20px rgba(190,120,255,.4),
+        0 0 80px rgba(120,40,220,.2);
+    animation:titleIn 1.4s cubic-bezier(.2,.8,.2,1) both;
 }
 
-.hero-description{
-  max-width:510px;
-  margin:28px auto;
-  font-size:13px;
-  line-height:1.9;
-  color:var(--muted);
+.hero h1 span{
+    display:block;
+    font-size:.34em;
+    letter-spacing:10px;
+    margin-top:25px;
+    color:#d8c9ed;
 }
 
-.hero-actions{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
+.hero-text{
+    margin:35px auto;
+    max-width:590px;
+    font-size:15px;
+    line-height:1.9;
+    color:#bcb4c9;
+    animation:fadeUp 1.5s .3s ease both;
 }
 
-/* ==============================
-   FLYING TAROT
-============================== */
-
-.flying{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+    animation:fadeUp 1.5s .5s ease both;
 }
 
-.f-card{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:82px;
-  height:132px;
-  border-radius:8px;
-  border:1px solid rgba(228,190,255,.55);
-  background:
-    linear-gradient(145deg,#12081a,#54206f,#100714);
-  box-shadow:0 0 25px rgba(164,74,230,.3);
-  opacity:0;
-  animation:flyCard var(--speed) ease-in-out infinite;
-  animation-delay:var(--delay);
+.main-btn{
+    padding:16px 32px;
+    border-radius:100px;
+    background:linear-gradient(120deg,#ffffff,#d8b7ff);
+    color:#0b0710;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:2px;
+    box-shadow:
+        0 0 20px rgba(205,150,255,.4),
+        0 0 60px rgba(130,60,220,.2);
+    transition:.35s;
 }
 
-.f-card:before{
-  content:"✦";
-  position:absolute;
-  inset:8px;
-  border:1px solid rgba(218,172,255,.2);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#d7aaff;
-  font-size:28px;
+.main-btn:hover{
+    transform:translateY(-4px) scale(1.03);
+    box-shadow:
+        0 0 35px rgba(220,170,255,.7),
+        0 0 100px rgba(130,50,230,.35);
 }
 
-@keyframes flyCard{
-  0%{
-    transform:translate(-50%,-50%) translate(0,0) rotate(0) scale(.15);
-    opacity:0;
-  }
-  15%{opacity:.9}
-  55%{
-    transform:
-      translate(-50%,-50%)
-      translate(var(--x),var(--y))
-      rotate(var(--rot))
-      scale(1);
-    opacity:.9;
-  }
-  100%{
-    transform:
-      translate(-50%,-50%)
-      translate(calc(var(--x)*1.8),calc(var(--y)*1.8))
-      rotate(calc(var(--rot) + 80deg))
-      scale(.08);
-    opacity:0;
-  }
+.second-btn{
+    padding:16px 32px;
+    border-radius:100px;
+    border:1px solid rgba(255,255,255,.18);
+    color:#ddd5e5;
+    font-size:11px;
+    letter-spacing:2px;
+    transition:.3s;
 }
 
-/* ==============================
-   GENERAL SECTIONS
-============================== */
-
-.section{
-  padding:125px 6%;
-  position:relative;
+.second-btn:hover{
+    background:rgba(255,255,255,.08);
 }
 
-.section-heading{
-  max-width:720px;
-  margin:0 auto 65px;
-  text-align:center;
+/* =========================================================
+   FLYING CARDS
+========================================================= */
+
+.card-zone{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    perspective:1200px;
 }
 
-.section-heading .small{
-  display:block;
-  font-size:8px;
-  letter-spacing:5px;
-  opacity:.45;
-  margin-bottom:16px;
+.fly-card{
+    position:absolute;
+    width:105px;
+    height:175px;
+    border-radius:8px;
+    background:
+        radial-gradient(circle at 50% 50%,rgba(180,110,255,.3),transparent 30%),
+        linear-gradient(145deg,#171021,#08050d);
+    border:1px solid rgba(220,185,255,.55);
+    box-shadow:
+        0 0 20px rgba(160,80,255,.25),
+        0 25px 70px rgba(0,0,0,.8);
+    transform-style:preserve-3d;
 }
 
-.section-heading h2{
-  font-family:Cinzel,serif;
-  font-size:clamp(30px,6vw,58px);
-  letter-spacing:3px;
+.fly-card:before{
+    content:"✦";
+    position:absolute;
+    inset:8px;
+    border:1px solid rgba(205,165,255,.35);
+    border-radius:5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    color:#d8b4ff;
 }
 
-.section-heading p{
-  margin:20px auto 0;
-  max-width:550px;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.9;
+.fly-card:after{
+    content:"THE ZENTAROT CO.";
+    position:absolute;
+    bottom:14px;
+    width:100%;
+    text-align:center;
+    font-family:Cinzel,serif;
+    font-size:6px;
+    letter-spacing:2px;
+    color:#b99bd5;
 }
 
-/* ==============================
-   WORLDS
-============================== */
-
-.worlds{
-  max-width:1250px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:24px;
+.c1{
+    left:8%;
+    top:22%;
+    animation:fly1 8s infinite ease-in-out;
 }
 
-.world{
-  min-height:560px;
-  position:relative;
-  overflow:hidden;
-  border:1px solid var(--line);
-  border-radius:28px;
-  background:
-    radial-gradient(circle at center,rgba(105,42,145,.12),transparent 60%),
-    rgba(9,5,14,.75);
-  transform-style:preserve-3d;
-  transition:
-    transform .7s cubic-bezier(.2,.8,.2,1),
-    border-color .5s,
-    box-shadow .5s;
+.c2{
+    right:10%;
+    top:25%;
+    animation:fly2 7s 1s infinite ease-in-out;
 }
 
-.world:hover{
-  transform:translateY(-12px);
-  border-color:rgba(207,147,255,.38);
-  box-shadow:0 30px 100px rgba(90,35,130,.2);
+.c3{
+    left:15%;
+    bottom:14%;
+    animation:fly3 9s 2s infinite ease-in-out;
 }
 
-.world-visual{
-  position:absolute;
-  inset:0;
+.c4{
+    right:15%;
+    bottom:12%;
+    animation:fly4 8s 1.5s infinite ease-in-out;
 }
 
-.world-content{
-  position:absolute;
-  z-index:20;
-  left:0;
-  right:0;
-  bottom:0;
-  padding:38px;
-  background:linear-gradient(transparent,rgba(3,2,7,.98) 42%);
+.c5{
+    left:50%;
+    top:12%;
+    margin-left:-52px;
+    animation:fly5 6s infinite ease-in-out;
 }
 
-.world-label{
-  font-size:8px;
-  letter-spacing:4px;
-  opacity:.45;
+@keyframes fly1{
+    0%,100%{transform:translate(-100px,50px) rotateY(35deg) rotateZ(-20deg) scale(.65);opacity:.15}
+    45%{transform:translate(80px,-20px) rotateY(-20deg) rotateZ(15deg) scale(1);opacity:.7}
+    70%{transform:translate(220px,-80px) rotateY(15deg) rotateZ(40deg) scale(.75);opacity:.2}
 }
 
-.world h3{
-  font-family:Cinzel,serif;
-  font-size:32px;
-  margin:9px 0;
+@keyframes fly2{
+    0%,100%{transform:translate(100px,20px) rotateY(-35deg) rotateZ(20deg) scale(.65);opacity:.15}
+    40%{transform:translate(-80px,-50px) rotateY(20deg) rotateZ(-15deg) scale(1);opacity:.8}
+    75%{transform:translate(-220px,-100px) rotateY(-15deg) rotateZ(-40deg) scale(.7);opacity:.1}
 }
 
-.world-description{
-  max-width:480px;
-  font-size:11px;
-  line-height:1.8;
-  color:var(--muted);
+@keyframes fly3{
+    0%,100%{transform:translate(-70px,80px) rotateZ(25deg) rotateY(25deg);opacity:.15}
+    50%{transform:translate(90px,-60px) rotateZ(-20deg) rotateY(-20deg);opacity:.6}
 }
 
-.world-content .primary-btn{
-  margin-top:20px;
+@keyframes fly4{
+    0%,100%{transform:translate(70px,60px) rotateZ(-25deg) rotateY(-25deg);opacity:.15}
+    50%{transform:translate(-100px,-70px) rotateZ(20deg) rotateY(20deg);opacity:.65}
 }
 
-/* ==============================
-   TAROT
-============================== */
+@keyframes fly5{
+    0%,100%{transform:translateY(40px) rotateZ(0deg) scale(.7);opacity:.2}
+    50%{transform:translateY(-90px) rotateZ(180deg) scale(1.05);opacity:.9}
+}
+
+/* =========================================================
+   ORBIT RINGS
+========================================================= */
+
+.orbit{
+    position:absolute;
+    width:480px;
+    height:480px;
+    border:1px solid rgba(190,120,255,.12);
+    border-radius:50%;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    animation:spin 20s linear infinite;
+}
+
+.orbit:before,
+.orbit:after{
+    content:"";
+    position:absolute;
+    inset:35px;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:50%;
+}
+
+.orbit:after{
+    inset:90px;
+    border-color:rgba(200,130,255,.1);
+}
+
+@keyframes spin{
+    to{transform:translate(-50%,-50%) rotate(360deg)}
+}
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+section{
+    padding:120px 6%;
+    position:relative;
+}
+
+.section-title{
+    text-align:center;
+    max-width:700px;
+    margin:0 auto 65px;
+}
+
+.eyebrow{
+    color:#b98aff;
+    font-size:10px;
+    letter-spacing:5px;
+    margin-bottom:16px;
+}
+
+.section-title h2{
+    font-family:Cinzel,serif;
+    font-size:clamp(32px,5vw,58px);
+    font-weight:400;
+}
+
+.section-title p{
+    color:#928b9c;
+    margin-top:18px;
+    line-height:1.8;
+}
+
+/* =========================================================
+   READING GRID
+========================================================= */
+
+.readings{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    max-width:1300px;
+    margin:auto;
+}
+
+.reading{
+    min-height:470px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:24px;
+    background:
+        linear-gradient(150deg,rgba(255,255,255,.065),rgba(255,255,255,.015));
+    padding:26px;
+    position:relative;
+    overflow:hidden;
+    transition:.5s cubic-bezier(.2,.8,.2,1);
+}
+
+.reading:hover{
+    transform:translateY(-14px) scale(1.02);
+    border-color:rgba(205,150,255,.4);
+    box-shadow:0 30px 100px rgba(100,30,180,.25);
+}
+
+.reading-number{
+    font-size:10px;
+    letter-spacing:3px;
+    color:#82788c;
+}
+
+.visual{
+    height:250px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+/* =========================================================
+   TAROT VISUAL
+========================================================= */
 
 .tarot-deck{
-  position:absolute;
-  width:125px;
-  height:200px;
-  left:50%;
-  top:39%;
-  transform:translate(-50%,-50%);
-  transform-style:preserve-3d;
+    width:120px;
+    height:190px;
+    position:relative;
+    transform:rotate(-8deg);
 }
 
-.t-card{
-  position:absolute;
-  inset:0;
-  border-radius:10px;
-  border:1px solid rgba(229,190,255,.55);
-  background:
-    linear-gradient(145deg,#100716,#55216d,#100613);
-  box-shadow:0 20px 40px rgba(0,0,0,.6);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:1s cubic-bezier(.2,.8,.2,1);
+.tcard{
+    position:absolute;
+    inset:0;
+    border:1px solid #c8a4e7;
+    border-radius:9px;
+    background:linear-gradient(145deg,#251239,#09050d);
+    box-shadow:0 20px 50px rgba(0,0,0,.7);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Cinzel,serif;
+    font-size:38px;
+    color:#d5aaff;
+    transition:.6s;
 }
 
-.t-card:before{
-  content:"✦";
-  width:75%;
-  height:75%;
-  border:1px solid rgba(220,170,255,.22);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family:Cinzel,serif;
-  font-size:42px;
-  color:#d8adff;
+.tcard:nth-child(1){transform:rotate(-15deg) translate(-18px,8px)}
+.tcard:nth-child(2){transform:rotate(10deg) translate(15px,-3px)}
+.tcard:nth-child(3){transform:translateY(-18px)}
+
+.reading:hover .tcard:nth-child(1){
+    transform:rotate(-28deg) translate(-60px,-15px);
 }
 
-.t-card:nth-child(2){
-  transform:translateZ(-15px) rotate(-4deg);
-}
-.t-card:nth-child(3){
-  transform:translateZ(-30px) rotate(5deg);
-}
-.t-card:nth-child(4){
-  transform:translateZ(-45px) rotate(-7deg);
-}
-.t-card:nth-child(5){
-  transform:translateZ(-60px) rotate(9deg);
+.reading:hover .tcard:nth-child(2){
+    transform:rotate(25deg) translate(60px,-15px);
 }
 
-.world:hover .t-card:first-child{
-  transform:translateZ(90px) translateY(-25px) rotate(-8deg);
+.reading:hover .tcard:nth-child(3){
+    transform:translateY(-45px) rotate(2deg);
 }
 
-.world:hover .t-card:nth-child(2){
-  transform:translateZ(50px) translateX(-60px) rotate(-12deg);
-}
-
-.world:hover .t-card:nth-child(3){
-  transform:translateZ(40px) translateX(60px) rotate(12deg);
-}
-
-.world:hover .t-card:nth-child(4){
-  transform:translateZ(25px) translateY(75px) rotate(-5deg);
-}
-
-.world:hover .t-card:nth-child(5){
-  transform:translateZ(10px) translateY(-90px) rotate(7deg);
-}
-
-/* ==============================
+/* =========================================================
    I CHING
-============================== */
+========================================================= */
 
-.iching-book{
-  position:absolute;
-  left:50%;
-  top:40%;
-  width:285px;
-  height:200px;
-  transform:translate(-50%,-50%) rotateX(15deg);
-  transform-style:preserve-3d;
-}
-
-.book-base{
-  position:absolute;
-  inset:0;
-  border-radius:7px;
-  background:linear-gradient(135deg,#28140b,#9a6b31,#241108);
-  border:1px solid #bb8b4e;
-  box-shadow:0 25px 60px rgba(0,0,0,.75);
+.book{
+    width:150px;
+    height:105px;
+    position:relative;
+    transform:rotate(-8deg);
+    transition:.6s;
 }
 
 .page{
-  position:absolute;
-  top:8px;
-  bottom:8px;
-  width:50%;
-  background:linear-gradient(90deg,#b89c68,#f0dfb2,#c8ad78);
-  color:#38220c;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family:Cinzel,serif;
-  font-size:37px;
-  border:1px solid rgba(60,35,10,.35);
-  transition:1.3s cubic-bezier(.2,.8,.2,1);
-  transform-style:preserve-3d;
+    position:absolute;
+    width:75px;
+    height:105px;
+    background:linear-gradient(135deg,#d9c4a4,#9b805d);
+    top:0;
+    border:1px solid rgba(255,255,255,.3);
 }
 
 .page.left{
-  left:0;
-  transform-origin:right;
-  border-radius:5px 0 0 5px;
+    left:0;
+    transform-origin:right center;
+    border-radius:5px 0 0 5px;
 }
 
 .page.right{
-  right:0;
-  transform-origin:left;
-  border-radius:0 5px 5px 0;
+    right:0;
+    transform-origin:left center;
+    border-radius:0 5px 5px 0;
 }
 
-.world:hover .page.left{
-  transform:rotateY(-58deg);
+.book-symbol{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#24152f;
+    font-size:35px;
+    z-index:2;
 }
 
-.world:hover .page.right{
-  transform:rotateY(58deg);
+.reading:hover .page.left{
+    transform:rotateY(45deg);
 }
 
-.hex{
-  position:absolute;
-  color:#d4a45b;
-  font-family:Cinzel,serif;
-  font-size:26px;
-  text-shadow:0 0 15px rgba(218,165,75,.6);
-  animation:hexMove 4s ease-in-out infinite;
+.reading:hover .page.right{
+    transform:rotateY(-45deg);
 }
 
-.hex:nth-child(1){left:13%;top:19%}
-.hex:nth-child(2){right:14%;top:22%;animation-delay:1s}
-.hex:nth-child(3){left:17%;bottom:37%;animation-delay:2s}
-.hex:nth-child(4){right:17%;bottom:35%;animation-delay:3s}
-
-@keyframes hexMove{
-  50%{
-    transform:translateY(-14px) rotate(8deg);
-    opacity:.5;
-  }
-}
-
-/* ==============================
+/* =========================================================
    ORACLE
-============================== */
+========================================================= */
 
-.oracle-ball{
-  position:absolute;
-  width:185px;
-  height:185px;
-  left:50%;
-  top:37%;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  background:
-    radial-gradient(circle at 28% 23%,#fff 0%,#dfc0ff 5%,#a04cdb 18%,#45165e 50%,#09030e 78%);
-  box-shadow:
-    0 0 30px #b45eff,
-    0 0 120px rgba(157,55,235,.6),
-    inset -30px -25px 50px rgba(0,0,0,.8);
-  animation:oracleFloat 4s ease-in-out infinite;
+.crystal{
+    width:135px;
+    height:135px;
+    border-radius:50%;
+    background:
+        radial-gradient(circle at 35% 30%,#fff,rgba(255,255,255,.5) 4%,transparent 10%),
+        radial-gradient(circle,#c9a0ff 0%,#7d3fc0 30%,#170c25 72%);
+    box-shadow:
+        0 0 30px rgba(190,110,255,.7),
+        0 0 100px rgba(130,40,220,.4);
+    animation:pulse 3s infinite ease-in-out;
+    position:relative;
 }
 
-.oracle-ball:before,
-.oracle-ball:after{
-  content:"";
-  position:absolute;
-  border:1px solid rgba(221,178,255,.35);
-  border-radius:50%;
-  animation:spin 9s linear infinite;
+.crystal:before,
+.crystal:after{
+    content:"";
+    position:absolute;
+    inset:-30px;
+    border:1px solid rgba(200,140,255,.18);
+    border-radius:50%;
+    animation:crystalOrbit 8s linear infinite;
 }
 
-.oracle-ball:before{
-  inset:-25px;
+.crystal:after{
+    inset:-55px;
+    animation-duration:12s;
 }
 
-.oracle-ball:after{
-  inset:-50px;
-  animation-duration:15s;
-  animation-direction:reverse;
+@keyframes crystalOrbit{
+    to{transform:rotate(360deg)}
 }
 
-@keyframes oracleFloat{
-  50%{transform:translate(-50%,-50%) translateY(-17px) scale(1.04)}
+@keyframes pulse{
+    50%{transform:scale(1.08)}
 }
 
-.energy-dot{
-  position:absolute;
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#d9b2ff;
-  box-shadow:0 0 18px #b158ff;
-  left:50%;
-  top:37%;
-  animation:energyOrbit 5s linear infinite;
-}
-
-.energy-dot:nth-child(2){animation-delay:1.2s}
-.energy-dot:nth-child(3){animation-delay:2.4s}
-.energy-dot:nth-child(4){animation-delay:3.6s}
-
-@keyframes energyOrbit{
-  from{
-    transform:rotate(0deg) translateX(125px);
-  }
-  to{
-    transform:rotate(360deg) translateX(125px);
-  }
-}
-
-/* ==============================
+/* =========================================================
    SIBILLE
-============================== */
+========================================================= */
 
-.sibille-table{
-  position:absolute;
-  width:330px;
-  height:250px;
-  left:50%;
-  top:38%;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  background:
-    radial-gradient(ellipse,#2a1235,#120918 62%,#050307);
-  box-shadow:0 30px 70px rgba(0,0,0,.85);
+.sibille{
+    position:relative;
+    width:170px;
+    height:190px;
 }
 
-.s-card{
-  position:absolute;
-  width:72px;
-  height:108px;
-  left:50%;
-  top:50%;
-  margin-left:-36px;
-  margin-top:-54px;
-  border-radius:7px;
-  border:1px solid rgba(224,183,255,.5);
-  background:
-    linear-gradient(145deg,#170b20,#542069,#100614);
-  box-shadow:0 8px 25px rgba(0,0,0,.7);
-  transition:1s cubic-bezier(.2,.8,.2,1);
+.scard{
+    position:absolute;
+    width:90px;
+    height:145px;
+    left:40px;
+    top:20px;
+    border:1px solid rgba(230,200,255,.5);
+    border-radius:7px;
+    background:linear-gradient(#3b254b,#110a16);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:Cinzel,serif;
+    color:#d8b4ff;
+    font-size:22px;
+    box-shadow:0 15px 40px rgba(0,0,0,.6);
+    transition:.6s;
 }
 
-.s-card:after{
-  content:"✦";
-  position:absolute;
-  inset:8px;
-  border:1px solid rgba(220,175,255,.2);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#d6a8ff;
-  font-size:24px;
+.scard:nth-child(1){transform:rotate(-28deg) translateX(-30px)}
+.scard:nth-child(2){transform:rotate(-14deg) translateX(-10px)}
+.scard:nth-child(3){transform:rotate(0deg)}
+.scard:nth-child(4){transform:rotate(14deg) translateX(10px)}
+.scard:nth-child(5){transform:rotate(28deg) translateX(30px)}
+
+.reading:hover .scard:nth-child(1){transform:rotate(-45deg) translateX(-55px)}
+.reading:hover .scard:nth-child(2){transform:rotate(-22deg) translateX(-25px)}
+.reading:hover .scard:nth-child(4){transform:rotate(22deg) translateX(25px)}
+.reading:hover .scard:nth-child(5){transform:rotate(45deg) translateX(55px)}
+
+/* =========================================================
+   READING TEXT
+========================================================= */
+
+.reading h3{
+    font-family:Cinzel,serif;
+    font-size:24px;
+    font-weight:400;
 }
 
-.world:hover .s-card:nth-child(1){
-  transform:translate(-120px,-25px) rotate(-28deg);
-}
-.world:hover .s-card:nth-child(2){
-  transform:translate(-65px,-75px) rotate(-14deg);
-}
-.world:hover .s-card:nth-child(3){
-  transform:translateY(-90px);
-}
-.world:hover .s-card:nth-child(4){
-  transform:translate(65px,-75px) rotate(14deg);
-}
-.world:hover .s-card:nth-child(5){
-  transform:translate(120px,-25px) rotate(28deg);
+.price{
+    margin:8px 0 15px;
+    color:#c8a0ff;
 }
 
-/* ==============================
-   PROCESS
-============================== */
-
-.process-grid{
-  max-width:1050px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
+.reading p{
+    font-size:12px;
+    line-height:1.7;
+    color:#948d9d;
+    min-height:65px;
 }
 
-.process-card{
-  padding:35px 22px;
-  border:1px solid var(--line);
-  border-radius:20px;
-  background:rgba(11,6,16,.7);
-  text-align:center;
-  transition:.4s;
+.buy{
+    display:block;
+    width:100%;
+    text-align:center;
+    padding:13px;
+    margin-top:20px;
+    border-radius:100px;
+    background:#fff;
+    color:#09060d;
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:2px;
+    transition:.3s;
 }
 
-.process-card:hover{
-  transform:translateY(-8px);
-  border-color:rgba(205,150,255,.4);
+.buy:hover{
+    transform:scale(1.03);
+    box-shadow:0 0 35px rgba(220,170,255,.55);
 }
 
-.process-number{
-  font-family:Cinzel,serif;
-  font-size:35px;
-  color:#bd72ff;
-  text-shadow:0 0 25px rgba(174,76,255,.55);
+/* =========================================================
+   MOTIVATIONAL
+========================================================= */
+
+.quote-section{
+    min-height:70vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
 }
 
-.process-card h3{
-  font-family:Cinzel,serif;
-  font-size:14px;
-  letter-spacing:2px;
-  margin:15px 0 10px;
+.quote-orb{
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(140,60,220,.22),transparent 65%);
+    filter:blur(20px);
+    animation:pulse 5s infinite;
 }
 
-.process-card p{
-  font-size:10px;
-  line-height:1.8;
-  color:var(--muted);
+.quote{
+    position:relative;
+    max-width:900px;
 }
 
-/* ==============================
-   PERSONAL READING
-============================== */
-
-.prepared{
-  max-width:950px;
-  min-height:430px;
-  margin:auto;
-  border-radius:30px;
-  border:1px solid rgba(208,153,255,.16);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(circle,rgba(105,42,145,.18),transparent 65%);
+.quote-mark{
+    font-family:Cinzel,serif;
+    font-size:100px;
+    color:rgba(190,130,255,.2);
 }
 
-.prepared:before{
-  content:"";
-  position:absolute;
-  width:500px;
-  height:500px;
-  border-radius:50%;
-  border:1px solid rgba(180,120,255,.08);
-  animation:spin 30s linear infinite;
+.quote h2{
+    font-family:Cinzel,serif;
+    font-size:clamp(30px,5vw,65px);
+    line-height:1.25;
+    font-weight:400;
 }
 
-.prepared-card{
-  width:115px;
-  height:180px;
-  margin:0 auto 30px;
-  border-radius:10px;
-  border:1px solid rgba(227,187,255,.6);
-  background:
-    repeating-linear-gradient(
-      45deg,
-      #160a20 0,
-      #160a20 9px,
-      #24102f 9px,
-      #24102f 18px
-    );
-  box-shadow:0 0 45px rgba(166,75,235,.35);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  animation:preparedFloat 3s ease-in-out infinite;
+.quote p{
+    margin-top:25px;
+    color:#918a99;
+    letter-spacing:2px;
+    font-size:11px;
 }
 
-.prepared-card:after{
-  content:"✦";
-  font-family:Cinzel,serif;
-  font-size:40px;
-  color:#d6a8ff;
+/* =========================================================
+   HOW IT WORKS
+========================================================= */
+
+.steps{
+    max-width:1000px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
 }
 
-@keyframes preparedFloat{
-  50%{transform:translateY(-15px) rotateY(12deg)}
+.step{
+    text-align:center;
+    padding:25px 10px;
 }
 
-.prepared-content{
-  position:relative;
-  z-index:2;
-  padding:30px;
+.step-number{
+    width:45px;
+    height:45px;
+    border:1px solid rgba(205,155,255,.35);
+    border-radius:50%;
+    margin:0 auto 18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#c9a4ff;
 }
 
-.prepared h2{
-  font-family:Cinzel,serif;
-  font-size:clamp(25px,5vw,42px);
-  margin-bottom:15px;
+.step h4{
+    font-family:Cinzel,serif;
+    font-weight:400;
+    margin-bottom:10px;
 }
 
-.prepared p{
-  max-width:550px;
-  margin:auto;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.9;
+.step p{
+    color:#85808c;
+    font-size:11px;
+    line-height:1.7;
 }
 
-/* ==============================
-   REVIEWS
-============================== */
-
-.reviews{
-  max-width:1000px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.review{
-  padding:30px;
-  border:1px solid var(--line);
-  border-radius:20px;
-  background:rgba(11,6,16,.65);
-}
-
-.stars-text{
-  letter-spacing:4px;
-  font-size:10px;
-  color:#d5a3ff;
-}
-
-.review p{
-  margin:20px 0;
-  font-size:12px;
-  line-height:1.8;
-  color:var(--muted);
-}
-
-.review small{
-  font-size:9px;
-  letter-spacing:2px;
-  opacity:.45;
-}
-
-/* ==============================
-   FAQ
-============================== */
-
-.faq{
-  max-width:800px;
-  margin:auto;
-}
-
-details{
-  border-bottom:1px solid var(--line);
-  padding:20px 0;
-}
-
-summary{
-  cursor:pointer;
-  list-style:none;
-  font-family:Cinzel,serif;
-  font-size:14px;
-  letter-spacing:1px;
-}
-
-summary::-webkit-details-marker{
-  display:none;
-}
-
-details p{
-  margin-top:14px;
-  color:var(--muted);
-  font-size:11px;
-  line-height:1.8;
-  max-width:700px;
-}
-
-/* ==============================
+/* =========================================================
    ABOUT
-============================== */
+========================================================= */
 
 .about{
-  max-width:800px;
-  margin:auto;
-  text-align:center;
+    max-width:850px;
+    margin:auto;
+    text-align:center;
+}
+
+.about h2{
+    font-family:Cinzel,serif;
+    font-weight:400;
+    font-size:42px;
 }
 
 .about p{
-  color:var(--muted);
-  font-size:13px;
-  line-height:2;
+    margin-top:25px;
+    color:#9b94a3;
+    line-height:2;
 }
 
-.future{
-  margin-top:35px;
-  padding:25px;
-  border:1px dashed rgba(210,160,255,.18);
-  border-radius:16px;
-  font-size:10px;
-  letter-spacing:2px;
-  opacity:.5;
-}
-
-/* ==============================
-   INSTAGRAM / CTA
-============================== */
-
-.social{
-  text-align:center;
-}
-
-.social p{
-  color:var(--muted);
-  font-size:12px;
-  margin:15px auto 25px;
-}
+/* =========================================================
+   FINAL CTA
+========================================================= */
 
 .final{
-  padding:140px 20px;
-  text-align:center;
+    text-align:center;
+    padding:150px 20px;
 }
 
 .final h2{
-  font-family:Cinzel,serif;
-  font-size:clamp(38px,8vw,75px);
-  letter-spacing:3px;
+    font-family:Cinzel,serif;
+    font-size:clamp(38px,7vw,75px);
+    font-weight:400;
 }
 
 .final p{
-  margin:20px auto 30px;
-  max-width:500px;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.8;
+    margin:25px auto 35px;
+    color:#948d9d;
+    max-width:500px;
+    line-height:1.8;
 }
 
-/* ==============================
+/* =========================================================
    FOOTER
-============================== */
+========================================================= */
 
 footer{
-  padding:40px 6%;
-  border-top:1px solid rgba(255,255,255,.06);
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:15px;
-  font-size:8px;
-  letter-spacing:2px;
-  opacity:.4;
+    border-top:1px solid rgba(255,255,255,.08);
+    padding:40px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#6e6876;
+    font-size:10px;
+    letter-spacing:2px;
 }
 
-/* ==============================
-   SCROLL REVEAL
-============================== */
-
-.reveal{
-  opacity:0;
-  transform:translateY(45px);
-  transition:opacity 1s ease,transform 1s ease;
+footer a{
+    color:#b895db;
 }
 
-.reveal.show{
-  opacity:1;
-  transform:none;
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes titleIn{
+    from{
+        opacity:0;
+        transform:translateY(50px) scale(.92);
+        filter:blur(15px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+        filter:none;
+    }
 }
 
-/* ==============================
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+/* =========================================================
    MOBILE
-============================== */
+========================================================= */
 
-@media(max-width:850px){
+@media(max-width:900px){
 
-  .nav-links{
-    display:none;
-  }
+    nav{
+        padding:17px 5%;
+    }
 
-  .hero-core{
-    width:105vw;
-    height:105vw;
-  }
+    .logo{
+        font-size:14px;
+        letter-spacing:3px;
+    }
 
-  .hero h1{
-    letter-spacing:5px;
-  }
+    .nav-buy{
+        padding:9px 14px;
+        font-size:9px;
+    }
 
-  .f-card{
-    width:60px;
-    height:96px;
-  }
+    .hero{
+        min-height:100svh;
+        padding-top:120px;
+    }
 
-  .worlds{
-    grid-template-columns:1fr;
-  }
+    .hero h1{
+        font-size:48px;
+        letter-spacing:4px;
+    }
 
-  .process-grid{
-    grid-template-columns:1fr 1fr;
-  }
+    .hero h1 span{
+        letter-spacing:5px;
+    }
 
-  .reviews{
-    grid-template-columns:1fr;
-  }
+    .hero-text{
+        font-size:13px;
+    }
 
-  .section{
-    padding:95px 5%;
-  }
+    .fly-card{
+        width:70px;
+        height:115px;
+    }
+
+    .c1{left:-2%}
+    .c2{right:-2%}
+    .c3{left:-4%}
+    .c4{right:-4%}
+
+    .orbit{
+        width:320px;
+        height:320px;
+    }
+
+    section{
+        padding:90px 5%;
+    }
+
+    .readings{
+        grid-template-columns:1fr;
+        max-width:480px;
+    }
+
+    .reading{
+        min-height:440px;
+    }
+
+    .steps{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .quote-section{
+        min-height:65vh;
+    }
+
+    .quote-mark{
+        font-size:70px;
+    }
+
+    footer{
+        flex-direction:column;
+        gap:15px;
+        text-align:center;
+    }
 }
 
-@media(max-width:480px){
+@media(max-width:500px){
 
-  .portal-content h1{
-    letter-spacing:4px;
-  }
+    .hero-buttons{
+        flex-direction:column;
+        align-items:center;
+    }
 
-  .hero-description{
-    font-size:12px;
-  }
+    .main-btn,
+    .second-btn{
+        width:90%;
+    }
 
-  .world{
-    min-height:510px;
-  }
+    .steps{
+        grid-template-columns:1fr;
+    }
 
-  .world-content{
-    padding:26px;
-  }
+    .hero-text{
+        max-width:330px;
+    }
 
-  .world h3{
-    font-size:27px;
-  }
-
-  .process-grid{
-    grid-template-columns:1fr;
-  }
-
-  .sibille-table{
-    transform:translate(-50%,-50%) scale(.82);
-  }
-
-  .iching-book{
-    transform:translate(-50%,-50%) rotateX(15deg) scale(.82);
-  }
+    .reading{
+        border-radius:20px;
+    }
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="noise"></div>
-<div class="ambient"></div>
-<div class="stars"></div>
-<div id="particles"></div>
-
-
 <!-- =====================================================
-     PORTAL
+     STARS
 ===================================================== -->
 
-<div id="portal">
-
-  <div class="portal-stars"></div>
-
-  <div class="portal-symbol"></div>
-  <div class="portal-symbol"></div>
-  <div class="portal-symbol"></div>
-
-  <div class="portal-orb"></div>
-
-  <div class="portal-content">
-
-    <h1>THE ZENTAROT CO.</h1>
-
-    <p>BEYOND THE VISIBLE</p>
-
-    <button class="enter-btn" id="enter">
-      ENTER THE EXPERIENCE
-    </button>
-
-  </div>
-
-</div>
-
+<div class="stars" id="stars"></div>
 
 <!-- =====================================================
-     SITE
+     NAV
 ===================================================== -->
-
-<div id="site">
-
-
-<!-- NAV -->
 
 <nav>
 
-  <div class="logo">
-    THE ZENTAROT CO.
-  </div>
+    <a href="#" class="logo">
+        THE ZENTAROT CO.
+        <span>SINCE 2020</span>
+    </a>
 
-  <div class="nav-links">
-    <a href="#readings">READINGS</a>
-    <a href="#process">HOW IT WORKS</a>
-    <a href="#about">ABOUT</a>
-  </div>
+    <a
+        href="https://thezentarotco.etsy.com"
+        target="_blank"
+        rel="noopener"
+        class="nav-buy"
+    >
+        SHOP ON ETSY
+    </a>
 
 </nav>
 
@@ -1339,290 +1012,282 @@ footer{
      HERO
 ===================================================== -->
 
-<section class="hero">
+<header class="hero">
 
-  <div class="hero-core">
+    <div class="card-zone">
 
-    <div class="ring">
-      <div class="ring-dot"></div>
-    </div>
+        <div class="orbit"></div>
 
-    <div class="ring">
-      <div class="ring-dot"></div>
-    </div>
-
-    <div class="ring">
-      <div class="ring-dot"></div>
-    </div>
-
-    <div class="ring"></div>
-
-    <div class="hero-orb"></div>
-
-  </div>
-
-
-  <!-- flying cards -->
-
-  <div class="flying">
-
-    <div class="f-card"
-      style="--x:-310px;--y:-120px;--rot:-28deg;--speed:7s;--delay:0s"></div>
-
-    <div class="f-card"
-      style="--x:310px;--y:-145px;--rot:30deg;--speed:8s;--delay:1s"></div>
-
-    <div class="f-card"
-      style="--x:-350px;--y:120px;--rot:35deg;--speed:9s;--delay:2s"></div>
-
-    <div class="f-card"
-      style="--x:350px;--y:145px;--rot:-32deg;--speed:8s;--delay:3s"></div>
-
-    <div class="f-card"
-      style="--x:-180px;--y:270px;--rot:-15deg;--speed:7s;--delay:4s"></div>
-
-    <div class="f-card"
-      style="--x:180px;--y:-270px;--rot:18deg;--speed:10s;--delay:2s"></div>
-
-  </div>
-
-
-  <div class="hero-content" id="heroContent">
-
-    <div class="eyebrow">
-      TAROT · I CHING · ORACLE · SIBILLE
-    </div>
-
-    <h1>
-      THE<br>
-      ZENTAROT CO.
-    </h1>
-
-    <p class="hero-description">
-      A digital space for symbols, intuition and personal readings.
-      Step beyond the visible and bring your question forward.
-    </p>
-
-    <div class="hero-actions">
-
-      <a class="primary-btn" href="#readings">
-        EXPLORE THE WORLDS
-      </a>
+        <div class="fly-card c1"></div>
+        <div class="fly-card c2"></div>
+        <div class="fly-card c3"></div>
+        <div class="fly-card c4"></div>
+        <div class="fly-card c5"></div>
 
     </div>
 
-  </div>
 
-</section>
+    <div class="hero-content">
+
+        <div class="since">
+            EST. 2020 · THE ZENTAROT CO.
+        </div>
+
+        <h1>
+            THE
+            <br>
+            ZENTAROT
+            <span>CO.</span>
+        </h1>
+
+        <p class="hero-text">
+            Sometimes the answers are not hidden.
+            They are simply waiting to be seen.
+            <br>
+            Explore your question. Trust your intuition.
+            Discover what lies beyond the visible.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a
+                href="https://thezentarotco.etsy.com"
+                target="_blank"
+                rel="noopener"
+                class="main-btn"
+            >
+                ENTER THE READINGS
+            </a>
+
+            <a href="#readings" class="second-btn">
+                EXPLORE
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
 
 
 <!-- =====================================================
      READINGS
 ===================================================== -->
 
-<section class="section" id="readings">
+<section id="readings">
 
-  <div class="section-heading reveal">
+    <div class="section-title">
 
-    <span class="small">
-      FOUR DOORS · ONE QUESTION
-    </span>
-
-    <h2>Choose Your Path</h2>
-
-    <p>
-      Explore four different symbolic systems.
-      Choose the one that feels right for your question.
-    </p>
-
-  </div>
-
-
-  <div class="worlds">
-
-
-    <!-- TAROT -->
-
-    <article class="world reveal">
-
-      <div class="world-visual">
-
-        <div class="tarot-deck">
-
-          <div class="t-card"></div>
-          <div class="t-card"></div>
-          <div class="t-card"></div>
-          <div class="t-card"></div>
-          <div class="t-card"></div>
-
+        <div class="eyebrow">
+            PERSONAL READINGS
         </div>
 
-      </div>
+        <h2>
+            Choose Your Path
+        </h2>
 
-
-      <div class="world-content">
-
-        <div class="world-label">
-          ARCANA
-        </div>
-
-        <h3>Tarot</h3>
-
-        <p class="world-description">
-          Explore the language of the Tarot with a reading created
-          personally around your question.
+        <p>
+            Every question is different.
+            Choose the system that speaks to your intuition.
         </p>
 
-        <a
-          class="primary-btn"
-          href="https://thezentarotco.etsy.com"
-          target="_blank">
-          REQUEST A READING
-        </a>
-
-      </div>
-
-    </article>
+    </div>
 
 
-    <!-- I CHING -->
-
-    <article class="world reveal">
-
-      <div class="world-visual">
-
-        <div class="hex">☷</div>
-        <div class="hex">☰</div>
-        <div class="hex">☵</div>
-        <div class="hex">☲</div>
-
-        <div class="iching-book">
-
-          <div class="book-base"></div>
-
-          <div class="page left">
-            ☯
-          </div>
-
-          <div class="page right">
-            ☰
-          </div>
-
-        </div>
-
-      </div>
+    <div class="readings">
 
 
-      <div class="world-content">
+        <!-- TAROT -->
 
-        <div class="world-label">
-          BOOK OF CHANGES
-        </div>
+        <article class="reading">
 
-        <h3>I Ching</h3>
+            <div class="reading-number">
+                01 · TAROT
+            </div>
 
-        <p class="world-description">
-          Enter the ancient symbolic world of the Book of Changes.
-          Send your question and receive a personal interpretation.
+            <div class="visual">
+
+                <div class="tarot-deck">
+
+                    <div class="tcard">☾</div>
+                    <div class="tcard">✦</div>
+                    <div class="tcard">☼</div>
+
+                </div>
+
+            </div>
+
+            <h3>Tarot Reading</h3>
+
+            <div class="price">€15</div>
+
+            <p>
+                A personal Tarot reading created around
+                your own question and situation.
+            </p>
+
+            <a
+                href="https://thezentarotco.etsy.com"
+                target="_blank"
+                rel="noopener"
+                class="buy"
+            >
+                BUY ON ETSY
+            </a>
+
+        </article>
+
+
+        <!-- I CHING -->
+
+        <article class="reading">
+
+            <div class="reading-number">
+                02 · I CHING
+            </div>
+
+            <div class="visual">
+
+                <div class="book">
+
+                    <div class="page left"></div>
+
+                    <div class="page right"></div>
+
+                    <div class="book-symbol">
+                        ☯
+                    </div>
+
+                </div>
+
+            </div>
+
+            <h3>I Ching Reading</h3>
+
+            <div class="price">€15</div>
+
+            <p>
+                Ancient wisdom and symbolic guidance
+                focused on your personal question.
+            </p>
+
+            <a
+                href="https://thezentarotco.etsy.com"
+                target="_blank"
+                rel="noopener"
+                class="buy"
+            >
+                BUY ON ETSY
+            </a>
+
+        </article>
+
+
+        <!-- ORACLE -->
+
+        <article class="reading">
+
+            <div class="reading-number">
+                03 · ORACLE
+            </div>
+
+            <div class="visual">
+
+                <div class="crystal"></div>
+
+            </div>
+
+            <h3>Oracle Reading</h3>
+
+            <div class="price">€12</div>
+
+            <p>
+                Intuitive oracle guidance designed to
+                illuminate the energy surrounding you.
+            </p>
+
+            <a
+                href="https://thezentarotco.etsy.com"
+                target="_blank"
+                rel="noopener"
+                class="buy"
+            >
+                BUY ON ETSY
+            </a>
+
+        </article>
+
+
+        <!-- SIBILLE -->
+
+        <article class="reading">
+
+            <div class="reading-number">
+                04 · SIBILLE
+            </div>
+
+            <div class="visual">
+
+                <div class="sibille">
+
+                    <div class="scard">♠</div>
+                    <div class="scard">♡</div>
+                    <div class="scard">✦</div>
+                    <div class="scard">♣</div>
+                    <div class="scard">♦</div>
+
+                </div>
+
+            </div>
+
+            <h3>Sibille Reading</h3>
+
+            <div class="price">€12</div>
+
+            <p>
+                Traditional Sibille symbolism interpreted
+                personally around your question.
+            </p>
+
+            <a
+                href="https://thezentarotco.etsy.com"
+                target="_blank"
+                rel="noopener"
+                class="buy"
+            >
+                BUY ON ETSY
+            </a>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MOTIVATIONAL
+===================================================== -->
+
+<section class="quote-section">
+
+    <div class="quote-orb"></div>
+
+    <div class="quote">
+
+        <div class="quote-mark">“</div>
+
+        <h2>
+            Trust your intuition.
+            <br>
+            Sometimes you already know.
+        </h2>
+
+        <p>
+            YOUR QUESTION IS THE BEGINNING OF THE JOURNEY.
         </p>
 
-        <a
-          class="primary-btn"
-          href="https://thezentarotco.etsy.com"
-          target="_blank">
-          REQUEST A READING
-        </a>
-
-      </div>
-
-    </article>
-
-
-    <!-- ORACLE -->
-
-    <article class="world reveal">
-
-      <div class="world-visual">
-
-        <div class="oracle-ball"></div>
-
-        <div class="energy-dot"></div>
-        <div class="energy-dot"></div>
-        <div class="energy-dot"></div>
-        <div class="energy-dot"></div>
-
-      </div>
-
-
-      <div class="world-content">
-
-        <div class="world-label">
-          INTUITION
-        </div>
-
-        <h3>Oracle</h3>
-
-        <p class="world-description">
-          A visual journey through symbols and intuition.
-          Your personal oracle reading is prepared after your purchase.
-        </p>
-
-        <a
-          class="primary-btn"
-          href="https://thezentarotco.etsy.com"
-          target="_blank">
-          REQUEST A READING
-        </a>
-
-      </div>
-
-    </article>
-
-
-    <!-- SIBILLE -->
-
-    <article class="world reveal">
-
-      <div class="world-visual">
-
-        <div class="sibille-table">
-
-          <div class="s-card"></div>
-          <div class="s-card"></div>
-          <div class="s-card"></div>
-          <div class="s-card"></div>
-          <div class="s-card"></div>
-
-        </div>
-
-      </div>
-
-
-      <div class="world-content">
-
-        <div class="world-label">
-          CLASSIC SYMBOLS
-        </div>
-
-        <h3>Sibille</h3>
-
-        <p class="world-description">
-          A classic symbolic card system.
-          The cards remain hidden while your personal spread is prepared.
-        </p>
-
-        <a
-          class="primary-btn"
-          href="https://thezentarotco.etsy.com"
-          target="_blank">
-          REQUEST A READING
-        </a>
-
-      </div>
-
-    </article>
-
-  </div>
+    </div>
 
 </section>
 
@@ -1631,266 +1296,75 @@ footer{
      HOW IT WORKS
 ===================================================== -->
 
-<section class="section" id="process">
+<section>
 
-  <div class="section-heading reveal">
+    <div class="section-title">
 
-    <span class="small">
-      THE ZENTAROT EXPERIENCE
-    </span>
+        <div class="eyebrow">
+            SIMPLE · PERSONAL · INTUITIVE
+        </div>
 
-    <h2>How It Works</h2>
-
-    <p>
-      The website creates the atmosphere.
-      The reading itself is personally prepared for you.
-    </p>
-
-  </div>
-
-
-  <div class="process-grid">
-
-    <div class="process-card reveal">
-
-      <div class="process-number">01</div>
-
-      <h3>CHOOSE</h3>
-
-      <p>
-        Choose Tarot, I Ching, Oracle or Sibille.
-      </p>
+        <h2>
+            How It Works
+        </h2>
 
     </div>
 
 
-    <div class="process-card reveal">
+    <div class="steps">
 
-      <div class="process-number">02</div>
+        <div class="step">
 
-      <h3>ASK</h3>
+            <div class="step-number">01</div>
 
-      <p>
-        Purchase your reading and send your question.
-      </p>
+            <h4>Choose</h4>
 
-    </div>
+            <p>
+                Choose the reading that feels right for you.
+            </p>
 
-
-    <div class="process-card reveal">
-
-      <div class="process-number">03</div>
-
-      <h3>I READ</h3>
-
-      <p>
-        Your reading is personally created around your question.
-      </p>
-
-    </div>
+        </div>
 
 
-    <div class="process-card reveal">
+        <div class="step">
 
-      <div class="process-number">04</div>
+            <div class="step-number">02</div>
 
-      <h3>RECEIVE</h3>
+            <h4>Buy</h4>
 
-      <p>
-        Receive your personalized response after it has been prepared.
-      </p>
+            <p>
+                Click the button and complete your purchase on Etsy.
+            </p>
 
-    </div>
-
-  </div>
-
-</section>
+        </div>
 
 
-<!-- =====================================================
-     PERSONAL READING
-===================================================== -->
+        <div class="step">
 
-<section class="section">
+            <div class="step-number">03</div>
 
-  <div class="prepared reveal">
+            <h4>Ask</h4>
 
-    <div class="prepared-content">
+            <p>
+                Send your question and the details that matter to you.
+            </p>
 
-      <div class="prepared-card"></div>
+        </div>
 
-      <h2>
-        Your Reading Is Being Prepared
-      </h2>
 
-      <p>
-        There is no automatic card interpretation here.
-        Your question is the center of the experience,
-        and your reading is personally prepared for you.
-      </p>
+        <div class="step">
+
+            <div class="step-number">04</div>
+
+            <h4>Receive</h4>
+
+            <p>
+                Your personal reading is prepared for you.
+            </p>
+
+        </div>
 
     </div>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     REVIEWS
-===================================================== -->
-
-<section class="section">
-
-  <div class="section-heading reveal">
-
-    <span class="small">
-      FROM THE COMMUNITY
-    </span>
-
-    <h2>Reviews</h2>
-
-    <p>
-      A space reserved for future client experiences.
-    </p>
-
-  </div>
-
-
-  <div class="reviews">
-
-    <div class="review reveal">
-
-      <div class="stars-text">
-        ★★★★★
-      </div>
-
-      <p>
-        Your future client review can appear here.
-      </p>
-
-      <small>
-        FUTURE CLIENT
-      </small>
-
-    </div>
-
-
-    <div class="review reveal">
-
-      <div class="stars-text">
-        ★★★★★
-      </div>
-
-      <p>
-        A personal experience can be featured here.
-      </p>
-
-      <small>
-        FUTURE CLIENT
-      </small>
-
-    </div>
-
-
-    <div class="review reveal">
-
-      <div class="stars-text">
-        ★★★★★
-      </div>
-
-      <p>
-        More real experiences can be added as your shop grows.
-      </p>
-
-      <small>
-        FUTURE CLIENT
-      </small>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     FAQ
-===================================================== -->
-
-<section class="section">
-
-  <div class="section-heading reveal">
-
-    <span class="small">
-      QUESTIONS
-    </span>
-
-    <h2>FAQ</h2>
-
-  </div>
-
-
-  <div class="faq">
-
-    <details class="reveal">
-
-      <summary>
-        Are readings automatic?
-      </summary>
-
-      <p>
-        No. The website does not automatically interpret cards.
-        Your reading is personally prepared after you purchase and
-        send your question.
-      </p>
-
-    </details>
-
-
-    <details class="reveal">
-
-      <summary>
-        How do I send my question?
-      </summary>
-
-      <p>
-        After purchasing the chosen reading, follow the instructions
-        provided with your order to send your question.
-      </p>
-
-    </details>
-
-
-    <details class="reveal">
-
-      <summary>
-        Which system should I choose?
-      </summary>
-
-      <p>
-        Choose the system that feels most appropriate for your question.
-        Tarot, I Ching, Oracle and Sibille each offer a different symbolic
-        approach.
-      </p>
-
-    </details>
-
-
-    <details class="reveal">
-
-      <summary>
-        How will I receive my reading?
-      </summary>
-
-      <p>
-        Your personalized response will be prepared and delivered
-        according to the instructions associated with your purchase.
-      </p>
-
-    </details>
-
-  </div>
 
 </section>
 
@@ -1899,106 +1373,29 @@ footer{
      ABOUT
 ===================================================== -->
 
-<section class="section" id="about">
+<section>
 
-  <div class="section-heading reveal">
+    <div class="about">
 
-    <span class="small">
-      THE ZENTAROT CO.
-    </span>
+        <div class="eyebrow">
+            THE STORY
+        </div>
 
-    <h2>Beyond The Visible</h2>
+        <h2>
+            Since 2020
+        </h2>
 
-  </div>
-
-
-  <div class="about reveal">
-
-    <p>
-      The Zentarot Co. is a digital space dedicated to Tarot,
-      I Ching, Oracle and Sibille. Each system opens a different
-      symbolic door, while every personal reading begins with
-      one thing: your question.
-    </p>
-
-
-    <div class="future">
-      MORE EXPERIENCES MAY APPEAR HERE IN THE FUTURE.
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     INSTAGRAM
-===================================================== -->
-
-<section class="section">
-
-  <div class="social reveal">
-
-    <div class="section-heading">
-
-      <span class="small">
-        FOLLOW THE JOURNEY
-      </span>
-
-      <h2>Instagram</h2>
-
-      <p>
-        Discover The Zentarot Co. beyond the website.
-      </p>
+        <p>
+            The Zentarot Co. was born from a fascination with
+            symbolism, intuition and the stories hidden within
+            the cards.
+            <br><br>
+            Every reading is personal.
+            Every question is different.
+            And every journey begins with curiosity.
+        </p>
 
     </div>
-
-
-    <!--
-      Quando avrai il link definitivo di Instagram,
-      sostituisci # con il link.
-    -->
-
-    <a
-      class="primary-btn"
-      href="#"
-      onclick="return false;">
-      @THEZENTAROTCO
-    </a>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     FUTURE RITUALS
-===================================================== -->
-
-<section class="section">
-
-  <div class="section-heading reveal">
-
-    <span class="small">
-      SOMETHING MAY COME
-    </span>
-
-    <h2>More To Come</h2>
-
-    <p>
-      New experiences may appear here in the future.
-    </p>
-
-  </div>
-
-
-  <div class="about reveal">
-
-    <div class="future">
-      FUTURE EXPERIENCE · RITUALS · NEW SYMBOLIC WORLDS
-    </div>
-
-  </div>
 
 </section>
 
@@ -2009,139 +1406,106 @@ footer{
 
 <section class="final">
 
-  <h2>
-    Ask Your Question.
-  </h2>
+    <div class="eyebrow">
+        YOUR JOURNEY STARTS HERE
+    </div>
 
-  <p>
-    Choose your path, send your question,
-    and begin your personal Zentarot experience.
-  </p>
+    <h2>
+        Ask the question.
+    </h2>
 
-  <a
-    class="primary-btn"
-    href="https://thezentarotco.etsy.com"
-    target="_blank">
-    ENTER THE ZENTAROT CO.
-  </a>
+    <p>
+        Follow your intuition and discover a different
+        perspective on what is happening around you.
+    </p>
+
+    <a
+        href="https://thezentarotco.etsy.com"
+        target="_blank"
+        rel="noopener"
+        class="main-btn"
+    >
+        SHOP YOUR READING ON ETSY
+    </a>
 
 </section>
 
 
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
 <footer>
 
-  <span>
-    © 2026 THE ZENTAROT CO.
-  </span>
+    <div>
+        © 2026 THE ZENTAROT CO. · SINCE 2020
+    </div>
 
-  <span>
-    TAROT · I CHING · ORACLE · SIBILLE
-  </span>
+    <div>
+
+        <a
+            href="https://thezentarotco.etsy.com"
+            target="_blank"
+            rel="noopener"
+        >
+            ETSY
+        </a>
+
+        &nbsp; · &nbsp;
+
+        <span>
+            TAROT · I CHING · ORACLE · SIBILLE
+        </span>
+
+    </div>
 
 </footer>
-
-</div>
 
 
 <script>
 
 /* =====================================================
-   PORTAL
+   GENERATE STARS
 ===================================================== */
 
-const portal =
-  document.getElementById("portal");
+const stars = document.getElementById("stars");
 
-const site =
-  document.getElementById("site");
+for(let i=0;i<140;i++){
 
-const enter =
-  document.getElementById("enter");
+    const star = document.createElement("div");
 
-enter.addEventListener("click",()=>{
+    star.className="star";
 
-  portal.classList.add("closed");
+    star.style.left=Math.random()*100+"%";
+    star.style.top=Math.random()*100+"%";
 
-  setTimeout(()=>{
-    site.classList.add("active");
-  },450);
+    star.style.animationDelay=(Math.random()*4)+"s";
 
-});
+    star.style.opacity=(Math.random()*.7+.1);
 
-
-/* =====================================================
-   PARTICLES
-===================================================== */
-
-const particles =
-  document.getElementById("particles");
-
-for(let i=0;i<70;i++){
-
-  const p =
-    document.createElement("div");
-
-  p.className="particle";
-
-  p.style.left =
-    Math.random()*100+"%";
-
-  p.style.setProperty(
-    "--drift",
-    ((Math.random()-.5)*180)+"px"
-  );
-
-  p.style.animationDuration =
-    (9+Math.random()*17)+"s";
-
-  p.style.animationDelay =
-    (-Math.random()*25)+"s";
-
-  const size =
-    1+Math.random()*3;
-
-  p.style.width=size+"px";
-  p.style.height=size+"px";
-
-  particles.appendChild(p);
+    stars.appendChild(star);
 }
 
 
 /* =====================================================
-   HERO PARALLAX
+   MOUSE PARALLAX
 ===================================================== */
 
-const hero =
-  document.querySelector(".hero");
+const cards = document.querySelectorAll(".fly-card");
 
-const heroContent =
-  document.getElementById("heroContent");
+document.addEventListener("mousemove",(e)=>{
 
-const heroCore =
-  document.querySelector(".hero-core");
+    const x=(e.clientX/window.innerWidth-.5);
+    const y=(e.clientY/window.innerHeight-.5);
 
-hero.addEventListener("pointermove",(event)=>{
+    cards.forEach((card,index)=>{
 
-  const x =
-    event.clientX / window.innerWidth - .5;
+        const strength=(index+1)*7;
 
-  const y =
-    event.clientY / window.innerHeight - .5;
+        card.style.marginLeft=(x*strength)+"px";
+        card.style.marginTop=(y*strength)+"px";
 
-  heroContent.style.transform =
-    `translate(${x*16}px,${y*16}px)`;
-
-  heroCore.style.transform =
-    `translate(calc(-50% + ${x*25}px),calc(-50% + ${y*25}px))`;
-
-});
-
-hero.addEventListener("pointerleave",()=>{
-
-  heroContent.style.transform="";
-
-  heroCore.style.transform=
-    "translate(-50%,-50%)";
+    });
 
 });
 
@@ -2150,111 +1514,67 @@ hero.addEventListener("pointerleave",()=>{
    SCROLL REVEAL
 ===================================================== */
 
-const observer =
-  new IntersectionObserver((entries)=>{
+const observer = new IntersectionObserver(
 
-    entries.forEach(entry=>{
+    entries => {
 
-      if(entry.isIntersecting){
+        entries.forEach(entry => {
 
-        entry.target.classList.add("show");
+            if(entry.isIntersecting){
 
-      }
+                entry.target.style.opacity="1";
+                entry.target.style.transform="translateY(0)";
 
-    });
+            }
 
-  },{
-    threshold:.12
-  });
+        });
 
+    },
 
-document
-  .querySelectorAll(".reveal")
-  .forEach(element=>{
-    observer.observe(element);
-  });
+    {threshold:.12}
+
+);
 
 
-/* =====================================================
-   WORLD PARALLAX
-===================================================== */
+document.querySelectorAll(".reading,.step,.about,.quote").forEach(el=>{
 
-document
-  .querySelectorAll(".world")
-  .forEach(world=>{
+    el.style.opacity="0";
+    el.style.transform="translateY(35px)";
+    el.style.transition="opacity .9s ease, transform .9s ease";
 
-    world.addEventListener("pointermove",(event)=>{
+    observer.observe(el);
 
-      if(window.innerWidth<850) return;
-
-      const rect =
-        world.getBoundingClientRect();
-
-      const x =
-        (event.clientX-rect.left)/rect.width-.5;
-
-      const y =
-        (event.clientY-rect.top)/rect.height-.5;
-
-      world.style.transform=
-        `perspective(900px)
-         rotateX(${y*-4}deg)
-         rotateY(${x*5}deg)
-         translateY(-8px)`;
-
-    });
-
-    world.addEventListener("pointerleave",()=>{
-
-      world.style.transform="";
-
-    });
-
-  });
+});
 
 
 /* =====================================================
    CLICK MAGIC
 ===================================================== */
 
-document.addEventListener("click",(event)=>{
+document.querySelectorAll("a").forEach(link=>{
 
-  const effect =
-    document.createElement("span");
+    link.addEventListener("click",()=>{
 
-  effect.style.position="fixed";
-  effect.style.left=event.clientX+"px";
-  effect.style.top=event.clientY+"px";
-  effect.style.width="8px";
-  effect.style.height="8px";
-  effect.style.border=
-    "1px solid rgba(213,164,255,.8)";
-  effect.style.borderRadius="50%";
-  effect.style.pointerEvents="none";
-  effect.style.zIndex="9997";
+        document.body.animate(
 
-  document.body.appendChild(effect);
+            [
+                {filter:"brightness(1)"},
+                {filter:"brightness(1.5)"},
+                {filter:"brightness(1)"}
+            ],
 
-  effect.animate([
+            {
+                duration:350,
+                easing:"ease-out"
+            }
 
-    {
-      transform:"translate(-50%,-50%) scale(1)",
-      opacity:1
-    },
+        );
 
-    {
-      transform:"translate(-50%,-50%) scale(9)",
-      opacity:0
-    }
-
-  ],{
-    duration:650,
-    easing:"ease-out"
-  }).onfinish=()=>effect.remove();
+    });
 
 });
 
 </script>
 
 </body>
-      </html>
+</html>
