@@ -4,680 +4,1564 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>The Zentarot Co — Mystical Digital Readings</title>
+<title>The Zentarot Co</title>
 
 <style>
 
-/* =========================
-   BASE
-========================= */
+/* =====================================================
+   RESET
+===================================================== */
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+html{
+  scroll-behavior:smooth;
 }
 
-body {
+body{
+  background:#030208;
+  color:#f6efe3;
+  font-family:Georgia,"Times New Roman",serif;
+  overflow-x:hidden;
+}
+
+/* =====================================================
+   COSMIC BACKGROUND
+===================================================== */
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-20;
+
   background:
-    radial-gradient(circle at 50% 20%, #24143a 0%, #0b0811 38%, #050407 100%);
-  color: #f7f0e5;
-  font-family: Georgia, "Times New Roman", serif;
-  overflow-x: hidden;
-  perspective: 1200px;
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(116,54,181,.28),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 15% 75%,
+      rgba(190,125,55,.10),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 65%,
+      rgba(91,48,170,.15),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #030208,
+      #0b0612,
+      #030208
+    );
 }
 
-/* =========================
-   STARS
-========================= */
+.stars{
+  position:fixed;
+  inset:0;
+  z-index:-15;
+  pointer-events:none;
 
-.stars,
-.stars2,
-.stars3 {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -5;
-}
-
-.stars {
   background-image:
-    radial-gradient(circle, rgba(255,255,255,.9) 1px, transparent 1.5px);
-  background-size: 100px 100px;
-  opacity: .16;
-  animation: stars 35s linear infinite;
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.9) 1px,
+      transparent 1.5px
+    );
+
+  background-size:90px 90px;
+  opacity:.18;
+
+  animation:starMove 35s linear infinite;
 }
 
-.stars2 {
-  background-image:
-    radial-gradient(circle, rgba(220,190,255,.8) 1px, transparent 2px);
-  background-size: 170px 170px;
-  opacity: .12;
-  animation: stars 55s linear infinite reverse;
-}
-
-.stars3 {
-  background-image:
-    radial-gradient(circle, rgba(255,220,170,.7) 1px, transparent 2px);
-  background-size: 230px 230px;
-  opacity: .1;
-}
-
-@keyframes stars {
-  from {
-    transform: translateY(0);
+@keyframes starMove{
+  from{
+    transform:translateY(0);
   }
-  to {
-    transform: translateY(-170px);
+
+  to{
+    transform:translateY(-90px);
   }
 }
 
-/* =========================
-   FLOATING LIGHTS
-========================= */
+/* =====================================================
+   PARTICLES
+===================================================== */
 
-.light {
-  position: fixed;
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  filter: blur(70px);
-  opacity: .15;
-  pointer-events: none;
-  z-index: -4;
+#particles{
+  position:fixed;
+  inset:0;
+  z-index:-5;
+  pointer-events:none;
 }
 
-.light.one {
-  background: #8e4fc4;
-  top: 5%;
-  left: -100px;
-  animation: floatOne 12s ease-in-out infinite;
-}
+.particle{
+  position:absolute;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:#fff;
 
-.light.two {
-  background: #c68b42;
-  right: -120px;
-  top: 50%;
-  animation: floatTwo 15s ease-in-out infinite;
-}
-
-.light.three {
-  background: #6339a1;
-  bottom: 0;
-  left: 40%;
-  animation: floatThree 18s ease-in-out infinite;
-}
-
-@keyframes floatOne {
-  50% {
-    transform: translate(100px, 120px);
-  }
-}
-
-@keyframes floatTwo {
-  50% {
-    transform: translate(-100px, -80px);
-  }
-}
-
-@keyframes floatThree {
-  50% {
-    transform: translate(60px, -80px);
-  }
-}
-
-/* =========================
-   NAVIGATION
-========================= */
-
-nav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 27px 7%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 20;
-}
-
-.logo {
-  font-size: 15px;
-  letter-spacing: 4px;
-  text-shadow: 0 0 15px rgba(255,255,255,.2);
-}
-
-nav a {
-  color: #f7f0e5;
-  text-decoration: none;
-  font-size: 10px;
-  letter-spacing: 3px;
-  margin-left: 25px;
-  opacity: .7;
-  transition: .3s;
-}
-
-nav a:hover {
-  opacity: 1;
-  text-shadow: 0 0 12px rgba(255,255,255,.6);
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-  padding: 120px 20px 100px;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  border: 1px solid rgba(220,190,255,.08);
-  border-radius: 50%;
   box-shadow:
-    0 0 80px rgba(130,70,190,.08),
-    inset 0 0 80px rgba(130,70,190,.05);
-  animation: orbit 25s linear infinite;
+    0 0 8px #fff;
+
+  animation:
+    particleRise
+    linear infinite;
 }
 
-.hero::after {
-  content: "";
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  border: 1px solid rgba(255,220,170,.07);
-  border-radius: 50%;
-  transform: rotateX(65deg);
-  animation: orbitReverse 20s linear infinite;
-}
+@keyframes particleRise{
 
-@keyframes orbit {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes orbitReverse {
-  from {
-    transform: rotateX(65deg) rotate(0deg);
-  }
-  to {
-    transform: rotateX(65deg) rotate(-360deg);
-  }
-}
-
-.hero-content {
-  position: relative;
-  z-index: 5;
-  max-width: 950px;
-  animation: heroAppear 1.6s ease forwards;
-}
-
-@keyframes heroAppear {
-  from {
-    opacity: 0;
-    transform: translateY(35px) scale(.96);
+  from{
+    transform:translateY(100vh) scale(.3);
+    opacity:0;
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+  20%{
+    opacity:.8;
   }
+
+  80%{
+    opacity:.4;
+  }
+
+  to{
+    transform:translateY(-20vh) scale(1.2);
+    opacity:0;
+  }
+
 }
 
-.eyebrow {
-  font-size: 10px;
-  letter-spacing: 7px;
-  opacity: .65;
-  margin-bottom: 30px;
-  text-transform: uppercase;
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+nav{
+  position:absolute;
+  top:0;
+  left:0;
+
+  width:100%;
+
+  padding:26px 6%;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  z-index:100;
 }
 
-h1 {
-  font-size: clamp(58px, 14vw, 135px);
-  line-height: .82;
-  font-weight: normal;
-  letter-spacing: 5px;
-  margin-bottom: 35px;
+.logo{
+  font-size:14px;
+  letter-spacing:4px;
+}
+
+nav a{
+  color:#f6efe3;
+  text-decoration:none;
+
+  font-size:9px;
+  letter-spacing:3px;
+
+  margin-left:25px;
+
+  opacity:.65;
+
+  transition:.3s;
+}
+
+nav a:hover{
+  opacity:1;
 
   text-shadow:
-    0 2px 0 #b9a99a,
-    0 5px 15px rgba(0,0,0,.7),
-    0 0 40px rgba(210,180,255,.12);
+    0 0 15px rgba(210,160,255,.8);
 }
 
-.subtitle {
-  font-size: clamp(17px, 3vw, 23px);
-  font-style: italic;
-  opacity: .75;
-  margin-bottom: 45px;
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+  min-height:100svh;
+
+  position:relative;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+
+  overflow:hidden;
+
+  perspective:1400px;
 }
 
-/* =========================
-   BUTTON
-========================= */
+/* magical rings */
 
-.button {
-  display: inline-block;
-  color: #f7f0e5;
-  text-decoration: none;
-  border: 1px solid rgba(245,239,229,.4);
-  padding: 17px 32px;
-  letter-spacing: 4px;
-  font-size: 10px;
+.ring{
+
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  border-radius:50%;
+
+  transform:
+    translate(-50%,-50%)
+    rotateX(68deg);
+
+  pointer-events:none;
+}
+
+.ring.one{
+
+  width:min(95vw,900px);
+  height:min(95vw,900px);
+
+  border:
+    1px solid
+    rgba(200,150,255,.10);
+
+  animation:
+    ringRotate
+    30s linear infinite;
+}
+
+.ring.two{
+
+  width:min(70vw,650px);
+  height:min(70vw,650px);
+
+  border:
+    1px dashed
+    rgba(230,190,140,.12);
+
+  animation:
+    ringRotateReverse
+    22s linear infinite;
+}
+
+.ring.three{
+
+  width:min(48vw,470px);
+  height:min(48vw,470px);
+
+  border:
+    1px solid
+    rgba(200,150,255,.08);
+
+  animation:
+    ringRotate
+    15s linear infinite;
+}
+
+@keyframes ringRotate{
+
+  from{
+    transform:
+      translate(-50%,-50%)
+      rotateX(68deg)
+      rotate(0deg);
+  }
+
+  to{
+    transform:
+      translate(-50%,-50%)
+      rotateX(68deg)
+      rotate(360deg);
+  }
+
+}
+
+@keyframes ringRotateReverse{
+
+  from{
+    transform:
+      translate(-50%,-50%)
+      rotateX(68deg)
+      rotate(360deg);
+  }
+
+  to{
+    transform:
+      translate(-50%,-50%)
+      rotateX(68deg)
+      rotate(0deg);
+  }
+
+}
+
+/* =====================================================
+   MAGIC ORB
+===================================================== */
+
+.orb{
+
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:145px;
+  height:145px;
+
+  transform:
+    translate(-50%,-50%);
+
+  border-radius:50%;
 
   background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.08),
-      rgba(255,255,255,.015)
+
+    radial-gradient(
+      circle at 32% 25%,
+      #ffffff 0 2%,
+      #dcbcff 5%,
+      #913bd0 18%,
+      #3c1659 45%,
+      #09040d 75%
     );
 
   box-shadow:
-    0 10px 30px rgba(0,0,0,.35),
-    inset 0 0 15px rgba(255,255,255,.03);
 
-  transition: .4s ease;
+    0 0 35px
+    rgba(195,115,255,.65),
+
+    0 0 110px
+    rgba(135,60,205,.35),
+
+    inset
+    -20px -20px 35px
+    rgba(0,0,0,.7);
+
+  z-index:4;
+
+  animation:
+    orbPulse
+    4s ease-in-out infinite;
 }
 
-.button:hover {
-  transform: translateY(-5px) scale(1.03);
+.orb::before{
 
-  background: rgba(245,239,229,.95);
-  color: #09070c;
+  content:"✦";
 
-  box-shadow:
-    0 15px 45px rgba(180,120,255,.25);
+  position:absolute;
+
+  inset:0;
+
+  display:grid;
+  place-items:center;
+
+  font-size:42px;
+
+  color:#fff;
+
+  text-shadow:
+    0 0 20px #fff,
+    0 0 45px #c66cff;
 }
 
-/* =========================
-   SECTIONS
-========================= */
+@keyframes orbPulse{
 
-section {
-  padding: 120px 7%;
-  position: relative;
+  50%{
+
+    transform:
+      translate(-50%,-50%)
+      scale(1.12);
+
+    box-shadow:
+
+      0 0 55px
+      rgba(205,125,255,.8),
+
+      0 0 150px
+      rgba(135,60,205,.4),
+
+      inset
+      -20px -20px 35px
+      rgba(0,0,0,.7);
+  }
+
 }
 
-.section-heading {
-  text-align: center;
-  margin-bottom: 65px;
-}
+/* =====================================================
+   HERO TEXT
+===================================================== */
 
-.section-heading span {
-  display: block;
-  font-size: 9px;
-  letter-spacing: 6px;
-  opacity: .5;
-  margin-bottom: 17px;
-}
+.hero-content{
 
-.section-heading h2 {
-  font-size: clamp(36px, 7vw, 60px);
-  font-weight: normal;
-  margin-bottom: 15px;
-  text-shadow: 0 5px 25px rgba(0,0,0,.5);
-}
+  position:relative;
 
-.section-heading p {
-  opacity: .55;
-  font-size: 15px;
-}
+  z-index:30;
 
-/* =========================
-   READING CARDS
-========================= */
-
-.readings {
-  max-width: 1100px;
-  margin: auto;
-
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-}
-
-.card {
-  position: relative;
-  min-height: 380px;
-  padding: 45px 25px;
-
-  text-align: center;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.075),
-      rgba(255,255,255,.018)
-    );
-
-  border: 1px solid rgba(245,239,229,.16);
-
-  border-radius: 5px;
-
-  box-shadow:
-    0 25px 60px rgba(0,0,0,.45),
-    inset 0 0 35px rgba(255,255,255,.025);
-
-  transform-style: preserve-3d;
+  max-width:900px;
 
   transition:
-    transform .5s ease,
-    border-color .5s ease,
-    box-shadow .5s ease;
-
-  overflow: hidden;
+    transform .12s linear;
 }
 
-.card::before {
-  content: "";
-  position: absolute;
-  inset: -50%;
-  background:
-    radial-gradient(
-      circle,
-      rgba(170,110,255,.13),
-      transparent 55%
-    );
+.eyebrow{
 
-  transform: translateZ(-20px);
-  pointer-events: none;
+  font-size:9px;
+
+  letter-spacing:7px;
+
+  opacity:.58;
+
+  margin-bottom:30px;
 }
 
-.card:hover {
-  transform:
-    translateY(-15px)
-    rotateX(5deg)
-    rotateY(-5deg);
+h1{
 
-  border-color: rgba(245,239,229,.42);
+  font-size:
+    clamp(60px,13vw,130px);
 
-  box-shadow:
-    0 35px 80px rgba(0,0,0,.6),
-    0 0 35px rgba(145,80,210,.13);
-}
+  line-height:.80;
 
-.card:nth-child(even):hover {
-  transform:
-    translateY(-15px)
-    rotateX(5deg)
-    rotateY(5deg);
-}
+  font-weight:normal;
 
-.card > * {
-  position: relative;
-  z-index: 2;
-  transform: translateZ(25px);
-}
+  letter-spacing:5px;
 
-.icon {
-  width: 75px;
-  height: 75px;
-
-  margin: 0 auto 30px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 37px;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.14),
-      rgba(120,60,180,.05)
-    );
-
-  border: 1px solid rgba(245,239,229,.15);
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.45),
-    inset 0 0 20px rgba(255,255,255,.04);
-
-  animation: iconFloat 5s ease-in-out infinite;
-}
-
-@keyframes iconFloat {
-  50% {
-    transform: translateZ(30px) translateY(-7px);
-  }
-}
-
-.card h3 {
-  font-size: 24px;
-  font-weight: normal;
-  margin-bottom: 17px;
-}
-
-.card p {
-  font-size: 13px;
-  line-height: 1.8;
-  opacity: .58;
-  min-height: 100px;
-}
-
-.price {
-  display: block;
-  font-size: 20px;
-  margin: 20px 0 24px;
-}
-
-/* =========================
-   HOW IT WORKS
-========================= */
-
-.steps {
-  max-width: 950px;
-  margin: auto;
-
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 30px;
-
-  text-align: center;
-}
-
-.step {
-  padding: 25px;
-  transition: .4s;
-}
-
-.step:hover {
-  transform: translateY(-8px);
-}
-
-.step-number {
-  font-size: 30px;
-  opacity: .75;
-  margin-bottom: 18px;
+  margin-bottom:30px;
 
   text-shadow:
-    0 0 20px rgba(190,140,255,.35);
+
+    0 4px 0
+    rgba(180,160,150,.55),
+
+    0 12px 35px
+    rgba(0,0,0,.9),
+
+    0 0 50px
+    rgba(185,105,255,.18);
 }
 
-.step h3 {
-  font-weight: normal;
-  font-size: 19px;
-  margin-bottom: 12px;
+.subtitle{
+
+  font-size:
+    clamp(17px,3vw,23px);
+
+  font-style:italic;
+
+  opacity:.72;
+
+  margin-bottom:40px;
 }
 
-.step p {
-  font-size: 13px;
-  opacity: .5;
-  line-height: 1.7;
+/* =====================================================
+   BUTTON
+===================================================== */
+
+.button{
+
+  display:inline-block;
+
+  color:#f6efe3;
+
+  text-decoration:none;
+
+  padding:16px 31px;
+
+  border:
+    1px solid
+    rgba(246,239,227,.42);
+
+  background:
+    rgba(255,255,255,.035);
+
+  letter-spacing:4px;
+
+  font-size:9px;
+
+  transition:.4s;
+
+  box-shadow:
+
+    0 15px 40px
+    rgba(0,0,0,.45),
+
+    inset
+    0 0 20px
+    rgba(255,255,255,.03);
 }
 
-/* =========================
+.button:hover{
+
+  transform:
+    translateY(-6px)
+    scale(1.04);
+
+  background:#f6efe3;
+
+  color:#09060d;
+
+  box-shadow:
+    0 20px 60px
+    rgba(175,95,255,.3);
+}
+
+/* =====================================================
+   FLYING TAROT CARDS
+===================================================== */
+
+.tarot-fly{
+
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:120px;
+  height:190px;
+
+  margin-left:-60px;
+  margin-top:-95px;
+
+  z-index:20;
+
+  perspective:1000px;
+
+  animation:
+    cardArrival
+    3s
+    cubic-bezier(.15,.8,.2,1)
+    forwards,
+
+    cardFloat
+    6s
+    ease-in-out
+    3s
+    infinite;
+}
+
+.tarot-fly:nth-child(5){
+  --x:-350px;
+  --y:-160px;
+  --r:-22deg;
+  --delay:.1s;
+}
+
+.tarot-fly:nth-child(6){
+  --x:310px;
+  --y:-150px;
+  --r:20deg;
+  --delay:.25s;
+}
+
+.tarot-fly:nth-child(7){
+  --x:-390px;
+  --y:130px;
+  --r:18deg;
+  --delay:.4s;
+}
+
+.tarot-fly:nth-child(8){
+  --x:350px;
+  --y:140px;
+  --r:-18deg;
+  --delay:.55s;
+}
+
+.tarot-fly:nth-child(9){
+  --x:-110px;
+  --y:-280px;
+  --r:-4deg;
+  --delay:.7s;
+}
+
+.tarot-fly:nth-child(10){
+  --x:100px;
+  --y:250px;
+  --r:6deg;
+  --delay:.85s;
+}
+
+.tarot-card{
+
+  width:100%;
+  height:100%;
+
+  border-radius:8px;
+
+  border:
+    1px solid
+    rgba(235,200,150,.55);
+
+  background:
+
+    radial-gradient(
+      circle,
+      rgba(160,80,220,.18),
+      transparent 45%
+    ),
+
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 9px,
+      rgba(230,190,255,.045) 9px 10px
+    ),
+
+    #10091a;
+
+  box-shadow:
+
+    0 25px 60px
+    rgba(0,0,0,.75),
+
+    0 0 25px
+    rgba(150,75,220,.18);
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+
+  align-items:center;
+
+  text-align:center;
+
+  transform-style:preserve-3d;
+}
+
+.tarot-card::before{
+
+  content:"✦";
+
+  font-size:42px;
+
+  color:#e5c9ff;
+
+  text-shadow:
+    0 0 20px #b760ff,
+    0 0 45px #8e3cc0;
+
+  margin-bottom:20px;
+}
+
+.tarot-card span{
+
+  font-size:9px;
+
+  letter-spacing:3px;
+
+  opacity:.65;
+}
+
+@keyframes cardArrival{
+
+  0%{
+
+    transform:
+      translate3d(
+        calc(var(--x) * 2),
+        calc(var(--y) * 2),
+        -900px
+      )
+      rotateZ(calc(var(--r) * 3))
+      rotateY(180deg);
+
+    opacity:0;
+  }
+
+  55%{
+
+    opacity:1;
+  }
+
+  100%{
+
+    transform:
+      translate3d(
+        var(--x),
+        var(--y),
+        0
+      )
+      rotateZ(var(--r))
+      rotateY(0deg);
+
+    opacity:1;
+  }
+
+}
+
+@keyframes cardFloat{
+
+  0%,100%{
+
+    transform:
+      translate3d(
+        var(--x),
+        var(--y),
+        0
+      )
+      rotateZ(var(--r))
+      rotateY(0deg);
+  }
+
+  50%{
+
+    transform:
+      translate3d(
+        var(--x),
+        calc(var(--y) - 22px),
+        70px
+      )
+      rotateZ(calc(var(--r) + 4deg))
+      rotateY(14deg);
+  }
+
+}
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+section.content-section{
+
+  padding:
+    125px 6%;
+
+  position:relative;
+}
+
+.section-heading{
+
+  text-align:center;
+
+  margin-bottom:65px;
+}
+
+.section-heading span{
+
+  display:block;
+
+  font-size:9px;
+
+  letter-spacing:6px;
+
+  opacity:.5;
+
+  margin-bottom:16px;
+}
+
+.section-heading h2{
+
+  font-size:
+    clamp(38px,7vw,62px);
+
+  font-weight:normal;
+
+  margin-bottom:14px;
+}
+
+.section-heading p{
+
+  font-size:15px;
+
+  opacity:.52;
+}
+
+/* =====================================================
+   SERVICE WORLDS
+===================================================== */
+
+.worlds{
+
+  max-width:1150px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:22px;
+}
+
+.world{
+
+  position:relative;
+
+  min-height:470px;
+
+  padding:35px 22px;
+
+  border:
+    1px solid
+    rgba(246,239,227,.14);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.07),
+      rgba(255,255,255,.012)
+    );
+
+  border-radius:8px;
+
+  overflow:hidden;
+
+  text-align:center;
+
+  transform-style:preserve-3d;
+
+  transition:
+    .55s
+    cubic-bezier(.2,.8,.2,1);
+}
+
+.world:hover{
+
+  transform:
+    translateY(-18px)
+    rotateX(5deg)
+    rotateY(-6deg);
+
+  border-color:
+    rgba(220,180,255,.45);
+
+  box-shadow:
+
+    0 35px 80px
+    rgba(0,0,0,.65),
+
+    0 0 40px
+    rgba(145,75,220,.15);
+}
+
+.world:nth-child(even):hover{
+
+  transform:
+    translateY(-18px)
+    rotateX(5deg)
+    rotateY(6deg);
+}
+
+/* =====================================================
+   TAROT MINI SCENE
+===================================================== */
+
+.mini-tarot{
+
+  width:125px;
+  height:175px;
+
+  margin:0 auto 30px;
+
+  position:relative;
+
+  transform-style:preserve-3d;
+}
+
+.mini-card{
+
+  position:absolute;
+
+  width:82px;
+  height:130px;
+
+  left:22px;
+  top:20px;
+
+  border:
+    1px solid
+    rgba(235,200,150,.55);
+
+  border-radius:7px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(175,90,240,.22),
+      transparent 45%
+    ),
+    #11091a;
+
+  box-shadow:
+    0 15px 30px rgba(0,0,0,.6);
+
+  display:grid;
+  place-items:center;
+
+  font-size:30px;
+
+  transition:.6s;
+}
+
+.mini-card:nth-child(1){
+  transform:rotate(-18deg) translateX(-22px);
+}
+
+.mini-card:nth-child(2){
+  transform:rotate(0deg) translateZ(30px);
+}
+
+.mini-card:nth-child(3){
+  transform:rotate(18deg) translateX(22px);
+}
+
+.world:hover .mini-card:nth-child(1){
+  transform:
+    rotate(-28deg)
+    translateX(-42px)
+    translateY(-8px);
+}
+
+.world:hover .mini-card:nth-child(3){
+  transform:
+    rotate(28deg)
+    translateX(42px)
+    translateY(-8px);
+}
+
+/* =====================================================
+   I CHING BOOK
+===================================================== */
+
+.book-scene{
+
+  width:150px;
+  height:160px;
+
+  margin:0 auto 40px;
+
+  position:relative;
+
+  perspective:900px;
+}
+
+.book{
+
+  position:absolute;
+
+  left:50%;
+  top:30px;
+
+  width:125px;
+  height:95px;
+
+  transform:
+    translateX(-50%)
+    rotateX(15deg);
+
+  transform-style:preserve-3d;
+}
+
+.page{
+
+  position:absolute;
+
+  width:62px;
+  height:95px;
+
+  top:0;
+
+  background:
+    linear-gradient(
+      145deg,
+      #c7ad82,
+      #75613e
+    );
+
+  border:
+    1px solid
+    rgba(255,225,170,.45);
+
+  box-shadow:
+    0 12px 25px rgba(0,0,0,.55);
+}
+
+.page.left{
+  left:0;
+
+  transform-origin:right center;
+
+  animation:
+    bookOpenLeft
+    4s
+    ease-in-out
+    infinite alternate;
+}
+
+.page.right{
+  right:0;
+
+  transform-origin:left center;
+
+  animation:
+    bookOpenRight
+    4s
+    ease-in-out
+    infinite alternate;
+}
+
+.page::after{
+
+  content:"☯";
+
+  position:absolute;
+
+  inset:0;
+
+  display:grid;
+
+  place-items:center;
+
+  color:#3a2517;
+
+  font-size:27px;
+}
+
+@keyframes bookOpenLeft{
+
+  from{
+    transform:rotateY(0deg);
+  }
+
+  to{
+    transform:rotateY(-42deg);
+  }
+
+}
+
+@keyframes bookOpenRight{
+
+  from{
+    transform:rotateY(0deg);
+  }
+
+  to{
+    transform:rotateY(42deg);
+  }
+
+}
+
+/* =====================================================
+   CRYSTAL
+===================================================== */
+
+.crystal{
+
+  width:130px;
+  height:180px;
+
+  margin:0 auto 20px;
+
+  position:relative;
+
+  display:grid;
+
+  place-items:center;
+}
+
+.crystal-core{
+
+  width:90px;
+  height:120px;
+
+  clip-path:
+    polygon(
+      50% 0,
+      88% 27%,
+      76% 100%,
+      24% 100%,
+      12% 27%
+    );
+
+  background:
+    linear-gradient(
+      145deg,
+      #e7caff,
+      #7a36a8 35%,
+      #180b25 75%
+    );
+
+  box-shadow:
+    0 0 35px
+    rgba(183,102,255,.55);
+
+  animation:
+    crystalFloat
+    4s
+    ease-in-out
+    infinite;
+}
+
+@keyframes crystalFloat{
+
+  50%{
+    transform:
+      translateY(-12px)
+      rotateY(18deg);
+  }
+
+}
+
+/* =====================================================
+   SIBILLE FAN
+===================================================== */
+
+.sibille-fan{
+
+  width:150px;
+  height:175px;
+
+  margin:0 auto 25px;
+
+  position:relative;
+}
+
+.sibille-card{
+
+  position:absolute;
+
+  left:35px;
+  top:20px;
+
+  width:80px;
+  height:125px;
+
+  border:
+    1px solid
+    rgba(235,200,150,.5);
+
+  border-radius:6px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #21122d,
+      #09060d
+    );
+
+  display:grid;
+
+  place-items:center;
+
+  font-size:28px;
+
+  transition:.6s;
+}
+
+.sibille-card:nth-child(1){
+  transform:rotate(-30deg);
+}
+
+.sibille-card:nth-child(2){
+  transform:rotate(-15deg);
+}
+
+.sibille-card:nth-child(3){
+  transform:rotate(0deg);
+}
+
+.sibille-card:nth-child(4){
+  transform:rotate(15deg);
+}
+
+.sibille-card:nth-child(5){
+  transform:rotate(30deg);
+}
+
+.world:hover .sibille-card:nth-child(1){
+  transform:rotate(-42deg) translateY(-10px);
+}
+
+.world:hover .sibille-card:nth-child(5){
+  transform:rotate(42deg) translateY(-10px);
+}
+
+/* =====================================================
+   WORLD TEXT
+===================================================== */
+
+.world h3{
+
+  font-size:25px;
+
+  font-weight:normal;
+
+  margin-bottom:15px;
+}
+
+.world p{
+
+  font-size:12px;
+
+  line-height:1.8;
+
+  opacity:.55;
+
+  min-height:70px;
+}
+
+.world .price{
+
+  font-size:19px;
+
+  margin:18px 0 22px;
+}
+
+/* =====================================================
+   HOW IT WORKS
+===================================================== */
+
+.steps{
+
+  max-width:950px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:25px;
+
+  text-align:center;
+}
+
+.step{
+
+  padding:25px;
+
+  transition:.4s;
+}
+
+.step:hover{
+
+  transform:
+    translateY(-10px)
+    scale(1.03);
+}
+
+.number{
+
+  font-size:31px;
+
+  opacity:.7;
+
+  margin-bottom:15px;
+
+  text-shadow:
+    0 0 20px
+    rgba(190,120,255,.5);
+}
+
+.step h3{
+
+  font-weight:normal;
+
+  margin-bottom:10px;
+}
+
+.step p{
+
+  font-size:12px;
+
+  line-height:1.7;
+
+  opacity:.5;
+}
+
+/* =====================================================
    ABOUT
-========================= */
+===================================================== */
 
-.about {
-  max-width: 780px;
-  margin: auto;
-  text-align: center;
+.about{
+
+  max-width:780px;
+
+  margin:auto;
+
+  text-align:center;
 }
 
-.about p {
-  font-size: 18px;
-  line-height: 2;
-  opacity: .65;
+.about p{
+
+  font-size:17px;
+
+  line-height:2;
+
+  opacity:.62;
 }
 
-/* =========================
+/* =====================================================
    FUTURE
-========================= */
+===================================================== */
 
-.future {
-  max-width: 850px;
-  margin: auto;
-  text-align: center;
+.future{
 
-  border-top: 1px solid rgba(245,239,229,.1);
+  max-width:850px;
+
+  margin:auto;
+
+  text-align:center;
+
+  border-top:
+    1px solid
+    rgba(246,239,227,.1);
 }
 
-.future p {
-  font-size: 15px;
-  line-height: 1.9;
-  opacity: .5;
+.future p{
+
+  font-size:15px;
+
+  line-height:1.9;
+
+  opacity:.5;
 }
 
-/* =========================
+/* =====================================================
    FOOTER
-========================= */
+===================================================== */
 
-footer {
-  border-top: 1px solid rgba(245,239,229,.1);
-  padding: 45px 20px;
-  text-align: center;
+footer{
 
-  font-size: 10px;
-  letter-spacing: 3px;
-  opacity: .4;
+  border-top:
+    1px solid
+    rgba(246,239,227,.1);
+
+  padding:45px 20px;
+
+  text-align:center;
+
+  font-size:9px;
+
+  letter-spacing:3px;
+
+  opacity:.38;
 }
 
-/* =========================
+/* =====================================================
    MOBILE
-========================= */
+===================================================== */
 
-@media(max-width: 900px) {
+@media(max-width:950px){
 
-  .readings {
-    grid-template-columns: repeat(2,1fr);
+  .worlds{
+
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
-  .steps {
-    grid-template-columns: repeat(2,1fr);
+  .steps{
+
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
-  .hero::before {
-    width: 500px;
-    height: 500px;
+  .tarot-fly{
+
+    width:90px;
+    height:145px;
+
+    margin-left:-45px;
+    margin-top:-72px;
   }
+
+  .tarot-fly:nth-child(5){
+    --x:-205px;
+    --y:-120px;
+  }
+
+  .tarot-fly:nth-child(6){
+    --x:185px;
+    --y:-115px;
+  }
+
+  .tarot-fly:nth-child(7){
+    --x:-220px;
+    --y:100px;
+  }
+
+  .tarot-fly:nth-child(8){
+    --x:200px;
+    --y:105px;
+  }
+
+  .tarot-fly:nth-child(9){
+    --x:-55px;
+    --y:-175px;
+  }
+
+  .tarot-fly:nth-child(10){
+    --x:50px;
+    --y:170px;
+  }
+
 }
 
-@media(max-width: 550px) {
+@media(max-width:560px){
 
-  nav {
-    padding: 22px 18px;
+  nav{
+
+    padding:
+      20px 17px;
   }
 
-  nav a {
-    font-size: 8px;
-    margin-left: 10px;
-    letter-spacing: 2px;
+  nav a{
+
+    font-size:7px;
+
+    margin-left:8px;
   }
 
-  .logo {
-    font-size: 11px;
-    letter-spacing: 2px;
+  .logo{
+
+    font-size:10px;
+
+    letter-spacing:2px;
   }
 
-  .hero {
-    min-height: 100svh;
-    padding: 110px 18px 80px;
+  .hero{
+
+    min-height:100svh;
   }
 
-  .hero::before {
-    width: 390px;
-    height: 390px;
+  h1{
+
+    font-size:57px;
+
+    letter-spacing:2px;
   }
 
-  .hero::after {
-    width: 280px;
-    height: 280px;
+  .eyebrow{
+
+    font-size:7px;
+
+    letter-spacing:3px;
   }
 
-  h1 {
-    font-size: 60px;
-    letter-spacing: 3px;
+  .orb{
+
+    width:95px;
+    height:95px;
   }
 
-  .eyebrow {
-    font-size: 8px;
-    letter-spacing: 4px;
+  .ring.one{
+
+    width:115vw;
+    height:115vw;
   }
 
-  section {
-    padding: 90px 18px;
+  .ring.two{
+
+    width:90vw;
+    height:90vw;
   }
 
-  .readings {
-    grid-template-columns: 1fr;
-    gap: 22px;
+  .ring.three{
+
+    width:70vw;
+    height:70vw;
   }
 
-  .card {
-    min-height: 370px;
+  .tarot-fly{
+
+    width:65px;
+    height:105px;
+
+    margin-left:-32px;
+    margin-top:-52px;
   }
 
-  .steps {
-    grid-template-columns: 1fr;
-    gap: 10px;
+  .tarot-card::before{
+
+    font-size:23px;
+
+    margin-bottom:8px;
   }
 
-  .about p {
-    font-size: 16px;
+  .tarot-card span{
+
+    font-size:6px;
+    letter-spacing:1px;
   }
+
+  .tarot-fly:nth-child(5){
+    --x:-108px;
+    --y:-72px;
+  }
+
+  .tarot-fly:nth-child(6){
+    --x:100px;
+    --y:-78px;
+  }
+
+  .tarot-fly:nth-child(7){
+    --x:-115px;
+    --y:70px;
+  }
+
+  .tarot-fly:nth-child(8){
+    --x:108px;
+    --y:75px;
+  }
+
+  .tarot-fly:nth-child(9){
+    --x:-25px;
+    --y:-125px;
+  }
+
+  .tarot-fly:nth-child(10){
+    --x:25px;
+    --y:125px;
+  }
+
+  section.content-section{
+
+    padding:
+      90px 18px;
+  }
+
+  .worlds{
+
+    grid-template-columns:
+      1fr;
+  }
+
+  .steps{
+
+    grid-template-columns:
+      1fr;
+  }
+
+  .world{
+
+    min-height:440px;
+  }
+
 }
 
 </style>
 </head>
 
+
 <body>
 
-<!-- BACKGROUND -->
-
 <div class="stars"></div>
-<div class="stars2"></div>
-<div class="stars3"></div>
 
-<div class="light one"></div>
-<div class="light two"></div>
-<div class="light three"></div>
+<div id="particles"></div>
 
 
-<!-- NAVIGATION -->
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
 
 <nav>
 
@@ -686,34 +1570,103 @@ footer {
   </div>
 
   <div>
-    <a href="#readings">READINGS</a>
-    <a href="#about">ABOUT</a>
+
+    <a href="#readings">
+      READINGS
+    </a>
+
+    <a href="#about">
+      ABOUT
+    </a>
+
   </div>
 
 </nav>
 
 
-<!-- HERO -->
+<!-- =====================================================
+     HERO
+===================================================== -->
 
 <section class="hero">
+
+  <div class="ring one"></div>
+  <div class="ring two"></div>
+  <div class="ring three"></div>
+
+  <div class="orb"></div>
+
+
+  <!-- FLYING CARDS -->
+
+  <div class="tarot-fly">
+    <div class="tarot-card">
+      <span>THE MOON</span>
+    </div>
+  </div>
+
+  <div class="tarot-fly">
+    <div class="tarot-card">
+      <span>THE SUN</span>
+    </div>
+  </div>
+
+  <div class="tarot-fly">
+    <div class="tarot-card">
+      <span>THE STAR</span>
+    </div>
+  </div>
+
+  <div class="tarot-fly">
+    <div class="tarot-card">
+      <span>THE WORLD</span>
+    </div>
+  </div>
+
+  <div class="tarot-fly">
+    <div class="tarot-card">
+      <span>THE PRIESTESS</span>
+    </div>
+  </div>
+
+  <div class="tarot-fly">
+    <div class="tarot-card">
+      <span>THE MAGICIAN</span>
+    </div>
+  </div>
+
+
+  <!-- HERO TEXT -->
 
   <div class="hero-content">
 
     <div class="eyebrow">
+
       TAROT • I CHING • ORACLE • SIBILLE
+
     </div>
 
     <h1>
+
       THE<br>
-      ZENTAROT CO
+      ZENTAROT<br>
+      CO
+
     </h1>
 
     <div class="subtitle">
+
       Discover what lies beyond the visible.
+
     </div>
 
-    <a class="button" href="#readings">
-      EXPLORE READINGS
+    <a
+      href="#readings"
+      class="button"
+    >
+
+      ENTER THE EXPERIENCE
+
     </a>
 
   </div>
@@ -721,32 +1674,53 @@ footer {
 </section>
 
 
-<!-- READINGS -->
+<!-- =====================================================
+     READINGS
+===================================================== -->
 
-<section id="readings">
+<section
+  class="content-section"
+  id="readings"
+>
 
   <div class="section-heading">
 
-    <span>THE ZENTAROT EXPERIENCE</span>
+    <span>
+      ENTER YOUR WORLD
+    </span>
 
-    <h2>Choose Your Reading</h2>
+    <h2>
+      Choose Your Reading
+    </h2>
 
     <p>
-      Personalized digital readings created around your question.
+      Four different paths. One question at a time.
     </p>
 
   </div>
 
 
-  <div class="readings">
+  <div class="worlds">
 
 
     <!-- TAROT -->
 
-    <div class="card">
+    <div class="world">
 
-      <div class="icon">
-        🃏
+      <div class="mini-tarot">
+
+        <div class="mini-card">
+          ☾
+        </div>
+
+        <div class="mini-card">
+          ✦
+        </div>
+
+        <div class="mini-card">
+          ☀
+        </div>
+
       </div>
 
       <h3>
@@ -754,19 +1728,22 @@ footer {
       </h3>
 
       <p>
-        A personalized Tarot reading exploring the symbols,
-        energies and messages surrounding your question.
+
+        Explore the symbols,
+        energies and archetypes
+        surrounding your question.
+
       </p>
 
-      <span class="price">
+      <div class="price">
         €15
-      </span>
+      </div>
 
       <a
         class="button"
         href="https://thezentarotco.etsy.com"
       >
-        ORDER
+        ENTER
       </a>
 
     </div>
@@ -774,10 +1751,17 @@ footer {
 
     <!-- I CHING -->
 
-    <div class="card">
+    <div class="world">
 
-      <div class="icon">
-        ☯
+      <div class="book-scene">
+
+        <div class="book">
+
+          <div class="page left"></div>
+          <div class="page right"></div>
+
+        </div>
+
       </div>
 
       <h3>
@@ -785,19 +1769,22 @@ footer {
       </h3>
 
       <p>
-        An ancient system of symbolic guidance for reflection
-        and deeper understanding.
+
+        Open the ancient book
+        and explore symbolic
+        guidance and reflection.
+
       </p>
 
-      <span class="price">
+      <div class="price">
         €15
-      </span>
+      </div>
 
       <a
         class="button"
         href="https://thezentarotco.etsy.com"
       >
-        ORDER
+        ENTER
       </a>
 
     </div>
@@ -805,10 +1792,12 @@ footer {
 
     <!-- ORACLE -->
 
-    <div class="card">
+    <div class="world">
 
-      <div class="icon">
-        🔮
+      <div class="crystal">
+
+        <div class="crystal-core"></div>
+
       </div>
 
       <h3>
@@ -816,19 +1805,22 @@ footer {
       </h3>
 
       <p>
-        An intuitive oracle reading created around the
-        question you want to explore.
+
+        Let intuition guide
+        the message created
+        around your question.
+
       </p>
 
-      <span class="price">
+      <div class="price">
         €12
-      </span>
+      </div>
 
       <a
         class="button"
         href="https://thezentarotco.etsy.com"
       >
-        ORDER
+        ENTER
       </a>
 
     </div>
@@ -836,10 +1828,30 @@ footer {
 
     <!-- SIBILLE -->
 
-    <div class="card">
+    <div class="world">
 
-      <div class="icon">
-        🌙
+      <div class="sibille-fan">
+
+        <div class="sibille-card">
+          ☽
+        </div>
+
+        <div class="sibille-card">
+          ♣
+        </div>
+
+        <div class="sibille-card">
+          ♢
+        </div>
+
+        <div class="sibille-card">
+          ♠
+        </div>
+
+        <div class="sibille-card">
+          ♥
+        </div>
+
       </div>
 
       <h3>
@@ -847,19 +1859,22 @@ footer {
       </h3>
 
       <p>
-        A traditional Sibille reading focused on your
-        personal question and situation.
+
+        A traditional reading
+        focused on your situation
+        and personal question.
+
       </p>
 
-      <span class="price">
+      <div class="price">
         €12
-      </span>
+      </div>
 
       <a
         class="button"
         href="https://thezentarotco.etsy.com"
       >
-        ORDER
+        ENTER
       </a>
 
     </div>
@@ -870,14 +1885,16 @@ footer {
 </section>
 
 
-<!-- HOW IT WORKS -->
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
 
-<section>
+<section class="content-section">
 
   <div class="section-heading">
 
     <span>
-      SIMPLE & DIGITAL
+      THE JOURNEY
     </span>
 
     <h2>
@@ -889,10 +1906,9 @@ footer {
 
   <div class="steps">
 
-
     <div class="step">
 
-      <div class="step-number">
+      <div class="number">
         01
       </div>
 
@@ -901,7 +1917,7 @@ footer {
       </h3>
 
       <p>
-        Select the reading that feels right for you.
+        Select your path.
       </p>
 
     </div>
@@ -909,7 +1925,7 @@ footer {
 
     <div class="step">
 
-      <div class="step-number">
+      <div class="number">
         02
       </div>
 
@@ -918,7 +1934,7 @@ footer {
       </h3>
 
       <p>
-        Share the question you want to explore.
+        Share your question.
       </p>
 
     </div>
@@ -926,7 +1942,7 @@ footer {
 
     <div class="step">
 
-      <div class="step-number">
+      <div class="number">
         03
       </div>
 
@@ -935,7 +1951,7 @@ footer {
       </h3>
 
       <p>
-        Your personalized digital reading is prepared.
+        Your reading is prepared.
       </p>
 
     </div>
@@ -943,7 +1959,7 @@ footer {
 
     <div class="step">
 
-      <div class="step-number">
+      <div class="number">
         04
       </div>
 
@@ -952,20 +1968,24 @@ footer {
       </h3>
 
       <p>
-        Explore the symbols and messages of your reading.
+        Explore the message.
       </p>
 
     </div>
-
 
   </div>
 
 </section>
 
 
-<!-- ABOUT -->
+<!-- =====================================================
+     ABOUT
+===================================================== -->
 
-<section id="about">
+<section
+  class="content-section"
+  id="about"
+>
 
   <div class="about">
 
@@ -982,9 +2002,12 @@ footer {
     </div>
 
     <p>
-      A digital space dedicated to Tarot, I Ching, Oracle
-      and Sibille readings — created for moments of curiosity,
+
+      A digital space dedicated to Tarot,
+      I Ching, Oracle and Sibille readings —
+      created for moments of curiosity,
       reflection and intuition.
+
     </p>
 
   </div>
@@ -992,31 +2015,38 @@ footer {
 </section>
 
 
-<!-- FUTURE -->
+<!-- =====================================================
+     FUTURE
+===================================================== -->
 
-<section class="future">
+<section class="content-section">
 
-  <div class="section-heading">
+  <div class="future">
 
-    <span>
-      THE JOURNEY CONTINUES
-    </span>
+    <div class="section-heading">
 
-    <h2>
-      More To Come
-    </h2>
+      <span>
+        THE JOURNEY CONTINUES
+      </span>
+
+      <h2>
+        More To Come
+      </h2>
+
+    </div>
+
+    <p>
+
+      New digital experiences,
+      services and mystical paths
+      will appear here in the future.
+
+    </p>
 
   </div>
 
-  <p>
-    The Zentarot Co will continue to grow with new
-    digital experiences and services in the future.
-  </p>
-
 </section>
 
-
-<!-- FOOTER -->
 
 <footer>
 
@@ -1025,5 +2055,120 @@ footer {
 </footer>
 
 
+<script>
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+const particleBox =
+  document.getElementById("particles");
+
+for(let i=0;i<90;i++){
+
+  const p =
+    document.createElement("div");
+
+  p.className="particle";
+
+  p.style.left =
+    Math.random()*100+"%";
+
+  p.style.animationDuration =
+    (7 + Math.random()*18)+"s";
+
+  p.style.animationDelay =
+    (-Math.random()*20)+"s";
+
+  p.style.opacity =
+    (.15 + Math.random()*.6);
+
+  particleBox.appendChild(p);
+
+}
+
+
+/* =====================================================
+   MOUSE PARALLAX
+===================================================== */
+
+const hero =
+  document.querySelector(".hero");
+
+const content =
+  document.querySelector(".hero-content");
+
+const cards =
+  document.querySelectorAll(".tarot-fly");
+
+hero.addEventListener(
+  "pointermove",
+  function(e){
+
+    const rect =
+      hero.getBoundingClientRect();
+
+    const x =
+      (e.clientX -
+      rect.left -
+      rect.width/2)
+      / rect.width;
+
+    const y =
+      (e.clientY -
+      rect.top -
+      rect.height/2)
+      / rect.height;
+
+
+    content.style.transform =
+      `translate3d(
+        ${x*14}px,
+        ${y*10}px,
+        0
+      )`;
+
+
+    cards.forEach(
+      (card,index)=>{
+
+        const depth =
+          (index+1)*1.5;
+
+        card.style.marginLeft =
+          `${-60 + x*depth}px`;
+
+        card.style.marginTop =
+          `${-95 + y*depth}px`;
+
+      }
+    );
+
+  }
+);
+
+
+/* =====================================================
+   TOUCH RESET
+===================================================== */
+
+hero.addEventListener(
+  "pointerleave",
+  function(){
+
+    content.style.transform="";
+
+    cards.forEach(card=>{
+
+      card.style.marginLeft="";
+      card.style.marginTop="";
+
+    });
+
+  }
+);
+
+</script>
+
 </body>
-</html>
+   </html>
