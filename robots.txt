@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dadda346sil-source.github.io/thezentarotco.github.io/sitemap.xml
