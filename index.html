@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>The Zentarot Co</title>
-
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>The Zentarot Co — Digital Readings</title><style>
 * {
   box-sizing: border-box;
   margin: 0;
@@ -24,17 +19,15 @@ body {
   overflow-x: hidden;
 }
 
-/* BACKGROUND */
-
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 15%, rgba(116,75,150,.22), transparent 32%),
-    radial-gradient(circle at 15% 80%, rgba(170,125,65,.10), transparent 30%),
-    radial-gradient(circle at 90% 70%, rgba(100,70,150,.10), transparent 30%);
+    radial-gradient(circle at 50% 15%, rgba(116,75,150,.25), transparent 32%),
+    radial-gradient(circle at 15% 80%, rgba(170,125,65,.12), transparent 30%),
+    radial-gradient(circle at 90% 70%, rgba(100,70,150,.12), transparent 30%);
   z-index: -2;
 }
 
@@ -196,7 +189,7 @@ section {
 }
 
 .card {
-  min-height: 330px;
+  min-height: 360px;
   padding: 38px 25px;
   border: 1px solid rgba(245,239,229,.12);
   background: rgba(255,255,255,.025);
@@ -276,6 +269,21 @@ section {
   opacity: .7;
 }
 
+/* FUTURE */
+
+.future {
+  max-width: 850px;
+  margin: auto;
+  text-align: center;
+  border-top: 1px solid rgba(245,239,229,.1);
+}
+
+.future p {
+  font-size: 15px;
+  line-height: 1.8;
+  opacity: .55;
+}
+
 /* FOOTER */
 
 footer {
@@ -298,7 +306,6 @@ footer {
   .steps {
     grid-template-columns: repeat(2,1fr);
   }
-
 }
 
 @media(max-width: 520px) {
@@ -331,244 +338,187 @@ footer {
   section {
     padding: 80px 20px;
   }
-
 }
-</style>
-</head>
-
-<body>
-
-<div class="stars"></div>
-
-<nav>
-  <div class="logo">THE ZENTAROT CO</div>
-
-  <div>
+</style></head><body><div class="stars"></div><nav>
+  <div class="logo">THE ZENTAROT CO</div>  <div>
     <a href="#readings">READINGS</a>
     <a href="#about">ABOUT</a>
   </div>
-</nav>
+</nav><section class="hero">  <div class="hero-content"><div class="eyebrow">
+  TAROT • I CHING • ORACLE • SIBILLE
+</div>
 
-<!-- HERO -->
+<h1>
+  THE<br>
+  ZENTAROT CO
+</h1>
 
-<section class="hero">
+<div class="subtitle">
+  Discover what lies beyond the visible.
+</div>
 
-  <div class="hero-content">
+<a class="button" href="#readings">
+  EXPLORE READINGS
+</a>
 
-    <div class="eyebrow">
-      Tarot • I Ching • Oracle • Sibille
-    </div>
+  </div></section><section id="readings">  <div class="section-heading"><span>THE ZENTAROT EXPERIENCE</span>
 
-    <h1>
-      THE<br>
-      ZENTAROT CO
-    </h1>
+<h2>Choose Your Reading</h2>
 
-    <div class="subtitle">
-      Discover what lies beyond the visible.
-    </div>
+<p>
+  Personalized digital readings created around your question.
+</p>
 
-    <a class="button" href="#readings">
-      EXPLORE READINGS
-    </a>
+  </div>  <div class="readings"><div class="card">
 
-  </div>
+  <div class="icon">🃏</div>
 
-</section>
+  <h3>Tarot</h3>
 
-<!-- READINGS -->
+  <p>
+    A personalized Tarot reading exploring the symbols,
+    energies and messages surrounding your question.
+  </p>
 
-<section id="readings">
+  <span class="price">€15</span>
 
-  <div class="section-heading">
+  <a class="button" href="https://thezentarotco.etsy.com">
+    ORDER
+  </a>
 
-    <span>THE ZENTAROT EXPERIENCE</span>
+</div>
 
-    <h2>Choose Your Reading</h2>
+<div class="card">
 
-    <p>
-      Personalized digital readings created around your question.
-    </p>
+  <div class="icon">☯</div>
 
-  </div>
+  <h3>I Ching</h3>
 
-  <div class="readings">
+  <p>
+    An ancient system of symbolic guidance for reflection
+    and deeper understanding.
+  </p>
 
-    <div class="card">
+  <span class="price">€15</span>
 
-      <div class="icon">🃏</div>
+  <a class="button" href="https://thezentarotco.etsy.com">
+    ORDER
+  </a>
 
-      <h3>Tarot</h3>
+</div>
 
-      <p>
-        A personalized Tarot reading exploring the symbols,
-        energies and messages surrounding your question.
-      </p>
+<div class="card">
 
-      <span class="price">€15</span>
+  <div class="icon">🔮</div>
 
-      <a class="button" href="#">
-        ORDER
-      </a>
+  <h3>Oracle</h3>
 
-    </div>
+  <p>
+    An intuitive oracle reading created around the
+    question you want to explore.
+  </p>
 
-    <div class="card">
+  <span class="price">€12</span>
 
-      <div class="icon">☯</div>
+  <a class="button" href="https://thezentarotco.etsy.com">
+    ORDER
+  </a>
 
-      <h3>I Ching</h3>
+</div>
 
-      <p>
-        An ancient system of symbolic guidance for reflection
-        and deeper understanding.
-      </p>
+<div class="card">
 
-      <span class="price">€15</span>
+  <div class="icon">🌙</div>
 
-      <a class="button" href="#">
-        ORDER
-      </a>
+  <h3>Sibille</h3>
 
-    </div>
+  <p>
+    A traditional Sibille reading focused on your
+    personal question and situation.
+  </p>
 
-    <div class="card">
+  <span class="price">€12</span>
 
-      <div class="icon">🔮</div>
+  <a class="button" href="https://thezentarotco.etsy.com">
+    ORDER
+  </a>
 
-      <h3>Oracle</h3>
+</div>
 
-      <p>
-        An intuitive oracle reading created around the
-        question you want to explore.
-      </p>
+  </div></section><section>  <div class="section-heading"><span>SIMPLE & DIGITAL</span>
 
-      <span class="price">€12</span>
+<h2>How It Works</h2>
 
-      <a class="button" href="#">
-        ORDER
-      </a>
+  </div>  <div class="steps"><div class="step">
 
-    </div>
+  <div class="step-number">01</div>
 
-    <div class="card">
+  <h3>Choose</h3>
 
-      <div class="icon">🌙</div>
+  <p>
+    Select the reading that feels right for you.
+  </p>
 
-      <h3>Sibille</h3>
+</div>
 
-      <p>
-        A traditional Sibille reading focused on your
-        personal question and situation.
-      </p>
+<div class="step">
 
-      <span class="price">€12</span>
+  <div class="step-number">02</div>
 
-      <a class="button" href="#">
-        ORDER
-      </a>
+  <h3>Ask</h3>
 
-    </div>
+  <p>
+    Share the question you want to explore.
+  </p>
 
-  </div>
+</div>
 
-</section>
+<div class="step">
 
-<!-- HOW IT WORKS -->
+  <div class="step-number">03</div>
 
-<section>
+  <h3>Receive</h3>
 
-  <div class="section-heading">
+  <p>
+    Your personalized digital reading is prepared.
+  </p>
 
-    <span>SIMPLE & DIGITAL</span>
+</div>
 
-    <h2>How It Works</h2>
+<div class="step">
 
-  </div>
+  <div class="step-number">04</div>
 
-  <div class="steps">
+  <h3>Reflect</h3>
 
-    <div class="step">
+  <p>
+    Explore the symbols and messages of your reading.
+  </p>
 
-      <div class="step-number">01</div>
+</div>
 
-      <h3>Choose</h3>
+  </div></section><section id="about">  <div class="about"><div class="section-heading">
 
-      <p>
-        Select the reading that feels right for you.
-      </p>
+  <span>ABOUT THE BRAND</span>
 
-    </div>
+  <h2>The Zentarot Co</h2>
 
-    <div class="step">
+</div>
 
-      <div class="step-number">02</div>
+<p>
+  A digital space dedicated to Tarot, I Ching, Oracle
+  and Sibille readings — created for moments of curiosity,
+  reflection and intuition.
+</p>
 
-      <h3>Ask</h3>
+  </div></section><section class="future">  <div class="section-heading"><span>THE JOURNEY CONTINUES</span>
 
-      <p>
-        Share the question you want to explore.
-      </p>
+<h2>More To Come</h2>
 
-    </div>
+  </div>  <p>
+    The Zentarot Co will continue to grow with new
+    digital experiences and services in the future.
+  </p></section><footer>© 2026 THE ZENTAROT CO
 
-    <div class="step">
-
-      <div class="step-number">03</div>
-
-      <h3>Receive</h3>
-
-      <p>
-        Your personalized digital reading is prepared.
-      </p>
-
-    </div>
-
-    <div class="step">
-
-      <div class="step-number">04</div>
-
-      <h3>Reflect</h3>
-
-      <p>
-        Explore the symbols and messages of your reading.
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- ABOUT -->
-
-<section id="about">
-
-  <div class="about">
-
-    <div class="section-heading">
-
-      <span>ABOUT THE BRAND</span>
-
-      <h2>The Zentarot Co</h2>
-
-    </div>
-
-    <p>
-      A digital space dedicated to Tarot, I Ching, Oracle
-      and Sibille readings — created for moments of curiosity,
-      reflection and intuition.
-    </p>
-
-  </div>
-
-</section>
-
-<footer>
-
-  © 2026 THE ZENTAROT CO
-
-</footer>
-
-</body>
+</footer></body>
 </html>
