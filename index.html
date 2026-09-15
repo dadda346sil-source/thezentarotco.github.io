@@ -3,19 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>The Zentarot Co</title>
+<title>The Zentarot Co.</title>
 
 <style>
-
-/* =====================================================
-   RESET
-===================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 *{
+  box-sizing:border-box;
   margin:0;
   padding:0;
-  box-sizing:border-box;
 }
 
 html{
@@ -23,141 +19,270 @@ html{
 }
 
 body{
-  background:#030208;
-  color:#f6efe3;
-  font-family:Georgia,"Times New Roman",serif;
+  background:#030207;
+  color:#f7f1ff;
+  font-family:Inter,sans-serif;
   overflow-x:hidden;
 }
 
-/* =====================================================
-   COSMIC BACKGROUND
-===================================================== */
-
-body::before{
+body:before{
   content:"";
   position:fixed;
   inset:0;
-  z-index:-20;
+  pointer-events:none;
+  z-index:9999;
+  background:radial-gradient(circle at center,transparent 40%,rgba(0,0,0,.65));
+}
 
+h1,h2,h3,.logo,.serif{
+  font-family:Cinzel,serif;
+}
+
+button,a{
+  -webkit-tap-highlight-color:transparent;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* =========================
+   LOADING / PORTAL
+========================= */
+
+#portal{
+  position:fixed;
+  inset:0;
+  z-index:10000;
   background:
-    radial-gradient(
-      circle at 50% 35%,
-      rgba(116,54,181,.28),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at 15% 75%,
-      rgba(190,125,55,.10),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 90% 65%,
-      rgba(91,48,170,.15),
-      transparent 30%
-    ),
-    linear-gradient(
-      145deg,
-      #030208,
-      #0b0612,
-      #030208
-    );
+    radial-gradient(circle at center,#211037 0%,#08050e 38%,#020104 75%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  transition:opacity 1.3s ease,visibility 1.3s ease;
+}
+
+#portal.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.portal-stars,
+.portal-stars:before,
+.portal-stars:after{
+  position:absolute;
+  inset:0;
+  content:"";
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.9) 1px,transparent 1.5px),
+    radial-gradient(circle,rgba(185,118,255,.7) 1px,transparent 1.5px);
+  background-size:90px 90px,140px 140px;
+  animation:starsMove 18s linear infinite;
+  opacity:.5;
+}
+
+.portal-stars:before{
+  transform:scale(1.5);
+  animation-duration:30s;
+}
+
+.portal-stars:after{
+  transform:scale(2);
+  animation-duration:45s;
+  opacity:.2;
+}
+
+@keyframes starsMove{
+  from{transform:translateY(0)}
+  to{transform:translateY(90px)}
+}
+
+.portal-core{
+  position:relative;
+  width:290px;
+  height:290px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.portal-ring{
+  position:absolute;
+  inset:-20px;
+  border:1px solid rgba(190,120,255,.45);
+  border-radius:50%;
+  animation:spin 14s linear infinite;
+  box-shadow:0 0 40px rgba(150,70,255,.2);
+}
+
+.portal-ring:nth-child(2){
+  inset:10px;
+  border-style:dashed;
+  animation-duration:9s;
+  animation-direction:reverse;
+}
+
+.portal-ring:nth-child(3){
+  inset:-55px;
+  border-color:rgba(255,255,255,.12);
+  animation-duration:25s;
+}
+
+.portal-ring:nth-child(4){
+  inset:-90px;
+  border:1px solid rgba(150,100,255,.1);
+  animation-duration:35s;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+.portal-orb{
+  width:125px;
+  height:125px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 30%,#fff 0%,#dcbaff 5%,#9c5cff 20%,#542080 48%,#12091c 75%);
+  box-shadow:
+    0 0 25px #a653ff,
+    0 0 80px rgba(142,60,255,.65),
+    inset -20px -20px 40px rgba(0,0,0,.7);
+  animation:orbPulse 3s ease-in-out infinite;
+}
+
+@keyframes orbPulse{
+  50%{
+    transform:scale(1.08);
+    box-shadow:
+      0 0 40px #bd75ff,
+      0 0 110px rgba(142,60,255,.8);
+  }
+}
+
+.portal-content{
+  position:absolute;
+  text-align:center;
+  z-index:5;
+}
+
+.portal-content h1{
+  font-size:clamp(28px,7vw,65px);
+  letter-spacing:8px;
+  margin-bottom:15px;
+  text-shadow:0 0 30px rgba(205,150,255,.5);
+}
+
+.portal-content p{
+  font-size:11px;
+  letter-spacing:5px;
+  opacity:.6;
+  margin-bottom:30px;
+}
+
+.enter{
+  border:1px solid rgba(220,180,255,.7);
+  background:rgba(30,12,50,.5);
+  color:white;
+  padding:15px 28px;
+  border-radius:999px;
+  letter-spacing:3px;
+  font-size:10px;
+  cursor:pointer;
+  backdrop-filter:blur(10px);
+  transition:.4s;
+}
+
+.enter:hover{
+  background:#9c55ff;
+  box-shadow:0 0 35px rgba(170,80,255,.6);
+  transform:scale(1.06);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+#site{
+  opacity:0;
+  transition:opacity 1.5s ease;
+}
+
+#site.visible{
+  opacity:1;
+}
+
+.background{
+  position:fixed;
+  inset:0;
+  z-index:-5;
+  background:
+    radial-gradient(circle at 50% 15%,rgba(104,46,158,.28),transparent 28%),
+    radial-gradient(circle at 10% 70%,rgba(69,27,105,.18),transparent 25%),
+    #030207;
 }
 
 .stars{
   position:fixed;
   inset:0;
-  z-index:-15;
-  pointer-events:none;
-
+  z-index:-4;
   background-image:
-    radial-gradient(
-      circle,
-      rgba(255,255,255,.9) 1px,
-      transparent 1.5px
-    );
-
-  background-size:90px 90px;
-  opacity:.18;
-
-  animation:starMove 35s linear infinite;
+    radial-gradient(circle,rgba(255,255,255,.75) 1px,transparent 1.4px),
+    radial-gradient(circle,rgba(180,130,255,.5) 1px,transparent 1.4px);
+  background-size:95px 95px,155px 155px;
+  animation:starsMove 25s linear infinite;
+  opacity:.4;
 }
 
-@keyframes starMove{
-  from{
-    transform:translateY(0);
-  }
-
-  to{
-    transform:translateY(-90px);
-  }
-}
-
-/* =====================================================
-   PARTICLES
-===================================================== */
-
-#particles{
+.particles{
   position:fixed;
   inset:0;
-  z-index:-5;
+  z-index:-2;
   pointer-events:none;
 }
 
 .particle{
   position:absolute;
-  width:2px;
-  height:2px;
+  width:3px;
+  height:3px;
+  background:#c48cff;
   border-radius:50%;
-  background:#fff;
-
-  box-shadow:
-    0 0 8px #fff;
-
-  animation:
-    particleRise
-    linear infinite;
+  box-shadow:0 0 12px #b65cff;
+  animation:floatParticle linear infinite;
 }
 
-@keyframes particleRise{
-
+@keyframes floatParticle{
   from{
-    transform:translateY(100vh) scale(.3);
+    transform:translateY(110vh) translateX(0);
     opacity:0;
   }
-
-  20%{
-    opacity:.8;
-  }
-
-  80%{
-    opacity:.4;
-  }
-
+  15%{opacity:1}
+  85%{opacity:1}
   to{
-    transform:translateY(-20vh) scale(1.2);
+    transform:translateY(-10vh) translateX(80px);
     opacity:0;
   }
-
 }
 
-/* =====================================================
-   NAVIGATION
-===================================================== */
+/* =========================
+   NAV
+========================= */
 
 nav{
-  position:absolute;
+  position:fixed;
   top:0;
   left:0;
-
-  width:100%;
-
-  padding:26px 6%;
-
+  right:0;
+  z-index:500;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-
-  z-index:100;
+  justify-content:space-between;
+  padding:20px 6%;
+  background:linear-gradient(to bottom,rgba(2,1,5,.85),transparent);
+  backdrop-filter:blur(3px);
 }
 
 .logo{
@@ -165,1508 +290,1020 @@ nav{
   letter-spacing:4px;
 }
 
-nav a{
-  color:#f6efe3;
-  text-decoration:none;
+.nav-links{
+  display:flex;
+  gap:28px;
+  font-size:10px;
+  letter-spacing:2px;
+  opacity:.75;
+}
 
-  font-size:9px;
-  letter-spacing:3px;
-
-  margin-left:25px;
-
-  opacity:.65;
-
+.nav-links a{
   transition:.3s;
 }
 
-nav a:hover{
-  opacity:1;
-
-  text-shadow:
-    0 0 15px rgba(210,160,255,.8);
+.nav-links a:hover{
+  color:#c68aff;
 }
 
-/* =====================================================
+/* =========================
    HERO
-===================================================== */
+========================= */
 
 .hero{
-
-  min-height:100svh;
-
+  min-height:100vh;
   position:relative;
-
   display:flex;
-  justify-content:center;
   align-items:center;
-
-  text-align:center;
-
+  justify-content:center;
   overflow:hidden;
-
-  perspective:1400px;
+  perspective:1000px;
 }
 
-/* magical rings */
-
-.ring{
-
-  position:absolute;
-
-  left:50%;
-  top:50%;
-
-  border-radius:50%;
-
-  transform:
-    translate(-50%,-50%)
-    rotateX(68deg);
-
-  pointer-events:none;
-}
-
-.ring.one{
-
-  width:min(95vw,900px);
-  height:min(95vw,900px);
-
-  border:
-    1px solid
-    rgba(200,150,255,.10);
-
-  animation:
-    ringRotate
-    30s linear infinite;
-}
-
-.ring.two{
-
-  width:min(70vw,650px);
-  height:min(70vw,650px);
-
-  border:
-    1px dashed
-    rgba(230,190,140,.12);
-
-  animation:
-    ringRotateReverse
-    22s linear infinite;
-}
-
-.ring.three{
-
-  width:min(48vw,470px);
-  height:min(48vw,470px);
-
-  border:
-    1px solid
-    rgba(200,150,255,.08);
-
-  animation:
-    ringRotate
-    15s linear infinite;
-}
-
-@keyframes ringRotate{
-
-  from{
-    transform:
-      translate(-50%,-50%)
-      rotateX(68deg)
-      rotate(0deg);
-  }
-
-  to{
-    transform:
-      translate(-50%,-50%)
-      rotateX(68deg)
-      rotate(360deg);
-  }
-
-}
-
-@keyframes ringRotateReverse{
-
-  from{
-    transform:
-      translate(-50%,-50%)
-      rotateX(68deg)
-      rotate(360deg);
-  }
-
-  to{
-    transform:
-      translate(-50%,-50%)
-      rotateX(68deg)
-      rotate(0deg);
-  }
-
-}
-
-/* =====================================================
-   MAGIC ORB
-===================================================== */
-
-.orb{
-
-  position:absolute;
-
-  left:50%;
-  top:50%;
-
-  width:145px;
-  height:145px;
-
-  transform:
-    translate(-50%,-50%);
-
-  border-radius:50%;
-
-  background:
-
-    radial-gradient(
-      circle at 32% 25%,
-      #ffffff 0 2%,
-      #dcbcff 5%,
-      #913bd0 18%,
-      #3c1659 45%,
-      #09040d 75%
-    );
-
-  box-shadow:
-
-    0 0 35px
-    rgba(195,115,255,.65),
-
-    0 0 110px
-    rgba(135,60,205,.35),
-
-    inset
-    -20px -20px 35px
-    rgba(0,0,0,.7);
-
-  z-index:4;
-
-  animation:
-    orbPulse
-    4s ease-in-out infinite;
-}
-
-.orb::before{
-
-  content:"✦";
-
-  position:absolute;
-
-  inset:0;
-
-  display:grid;
-  place-items:center;
-
-  font-size:42px;
-
-  color:#fff;
-
-  text-shadow:
-    0 0 20px #fff,
-    0 0 45px #c66cff;
-}
-
-@keyframes orbPulse{
-
-  50%{
-
-    transform:
-      translate(-50%,-50%)
-      scale(1.12);
-
-    box-shadow:
-
-      0 0 55px
-      rgba(205,125,255,.8),
-
-      0 0 150px
-      rgba(135,60,205,.4),
-
-      inset
-      -20px -20px 35px
-      rgba(0,0,0,.7);
-  }
-
-}
-
-/* =====================================================
-   HERO TEXT
-===================================================== */
-
-.hero-content{
-
+.hero-inner{
+  text-align:center;
   position:relative;
-
-  z-index:30;
-
-  max-width:900px;
-
-  transition:
-    transform .12s linear;
+  z-index:10;
+  padding:100px 20px 60px;
 }
 
 .eyebrow{
-
-  font-size:9px;
-
-  letter-spacing:7px;
-
-  opacity:.58;
-
-  margin-bottom:30px;
+  font-size:10px;
+  letter-spacing:6px;
+  opacity:.55;
+  margin-bottom:25px;
 }
 
-h1{
-
-  font-size:
-    clamp(60px,13vw,130px);
-
-  line-height:.80;
-
-  font-weight:normal;
-
-  letter-spacing:5px;
-
-  margin-bottom:30px;
-
+.hero h1{
+  font-size:clamp(42px,10vw,105px);
+  letter-spacing:10px;
+  line-height:.95;
   text-shadow:
-
-    0 4px 0
-    rgba(180,160,150,.55),
-
-    0 12px 35px
-    rgba(0,0,0,.9),
-
-    0 0 50px
-    rgba(185,105,255,.18);
+    0 0 25px rgba(193,120,255,.35),
+    0 0 80px rgba(130,50,220,.25);
 }
 
-.subtitle{
-
-  font-size:
-    clamp(17px,3vw,23px);
-
-  font-style:italic;
-
-  opacity:.72;
-
-  margin-bottom:40px;
-}
-
-/* =====================================================
-   BUTTON
-===================================================== */
-
-.button{
-
-  display:inline-block;
-
-  color:#f6efe3;
-
-  text-decoration:none;
-
-  padding:16px 31px;
-
-  border:
-    1px solid
-    rgba(246,239,227,.42);
-
-  background:
-    rgba(255,255,255,.035);
-
-  letter-spacing:4px;
-
-  font-size:9px;
-
-  transition:.4s;
-
-  box-shadow:
-
-    0 15px 40px
-    rgba(0,0,0,.45),
-
-    inset
-    0 0 20px
-    rgba(255,255,255,.03);
-}
-
-.button:hover{
-
-  transform:
-    translateY(-6px)
-    scale(1.04);
-
-  background:#f6efe3;
-
-  color:#09060d;
-
-  box-shadow:
-    0 20px 60px
-    rgba(175,95,255,.3);
-}
-
-/* =====================================================
-   FLYING TAROT CARDS
-===================================================== */
-
-.tarot-fly{
-
-  position:absolute;
-
-  left:50%;
-  top:50%;
-
-  width:120px;
-  height:190px;
-
-  margin-left:-60px;
-  margin-top:-95px;
-
-  z-index:20;
-
-  perspective:1000px;
-
-  animation:
-    cardArrival
-    3s
-    cubic-bezier(.15,.8,.2,1)
-    forwards,
-
-    cardFloat
-    6s
-    ease-in-out
-    3s
-    infinite;
-}
-
-.tarot-fly:nth-child(5){
-  --x:-350px;
-  --y:-160px;
-  --r:-22deg;
-  --delay:.1s;
-}
-
-.tarot-fly:nth-child(6){
-  --x:310px;
-  --y:-150px;
-  --r:20deg;
-  --delay:.25s;
-}
-
-.tarot-fly:nth-child(7){
-  --x:-390px;
-  --y:130px;
-  --r:18deg;
-  --delay:.4s;
-}
-
-.tarot-fly:nth-child(8){
-  --x:350px;
-  --y:140px;
-  --r:-18deg;
-  --delay:.55s;
-}
-
-.tarot-fly:nth-child(9){
-  --x:-110px;
-  --y:-280px;
-  --r:-4deg;
-  --delay:.7s;
-}
-
-.tarot-fly:nth-child(10){
-  --x:100px;
-  --y:250px;
-  --r:6deg;
-  --delay:.85s;
-}
-
-.tarot-card{
-
-  width:100%;
-  height:100%;
-
-  border-radius:8px;
-
-  border:
-    1px solid
-    rgba(235,200,150,.55);
-
-  background:
-
-    radial-gradient(
-      circle,
-      rgba(160,80,220,.18),
-      transparent 45%
-    ),
-
-    repeating-linear-gradient(
-      45deg,
-      transparent 0 9px,
-      rgba(230,190,255,.045) 9px 10px
-    ),
-
-    #10091a;
-
-  box-shadow:
-
-    0 25px 60px
-    rgba(0,0,0,.75),
-
-    0 0 25px
-    rgba(150,75,220,.18);
-
-  display:flex;
-
-  flex-direction:column;
-
-  justify-content:center;
-
-  align-items:center;
-
-  text-align:center;
-
-  transform-style:preserve-3d;
-}
-
-.tarot-card::before{
-
-  content:"✦";
-
-  font-size:42px;
-
-  color:#e5c9ff;
-
-  text-shadow:
-    0 0 20px #b760ff,
-    0 0 45px #8e3cc0;
-
-  margin-bottom:20px;
-}
-
-.tarot-card span{
-
-  font-size:9px;
-
-  letter-spacing:3px;
-
+.hero-sub{
+  margin:25px auto 35px;
+  max-width:500px;
+  font-size:14px;
+  line-height:1.8;
   opacity:.65;
 }
 
-@keyframes cardArrival{
+.hero-button{
+  display:inline-block;
+  padding:15px 27px;
+  border:1px solid rgba(220,180,255,.45);
+  border-radius:999px;
+  font-size:10px;
+  letter-spacing:3px;
+  transition:.4s;
+  background:rgba(20,10,35,.45);
+  backdrop-filter:blur(10px);
+}
 
+.hero-button:hover{
+  background:#8c43d6;
+  box-shadow:0 0 40px rgba(153,66,230,.55);
+  transform:translateY(-4px);
+}
+
+/* =========================
+   HERO ORBIT
+========================= */
+
+.hero-orbit{
+  position:absolute;
+  width:min(70vw,650px);
+  height:min(70vw,650px);
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+
+.orbit{
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(174,105,255,.13);
+  border-radius:50%;
+  animation:spin 30s linear infinite;
+}
+
+.orbit.two{
+  inset:13%;
+  border-style:dashed;
+  animation-duration:18s;
+  animation-direction:reverse;
+}
+
+.orbit.three{
+  inset:27%;
+  animation-duration:12s;
+}
+
+.orbit-dot{
+  position:absolute;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#d6a5ff;
+  box-shadow:0 0 20px #b15dff;
+  top:0;
+  left:50%;
+}
+
+/* =========================
+   FLYING TAROT CARDS
+========================= */
+
+.flying-cards{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+.fly-card{
+  position:absolute;
+  width:90px;
+  height:145px;
+  left:50%;
+  top:50%;
+  transform:
+    translate(-50%,-50%)
+    translate(var(--x),var(--y))
+    rotate(var(--r))
+    scale(.7);
+  transform-style:preserve-3d;
+  animation:cardFly var(--duration) ease-in-out infinite;
+  animation-delay:var(--delay);
+  opacity:.7;
+}
+
+@keyframes cardFly{
   0%{
-
     transform:
-      translate3d(
-        calc(var(--x) * 2),
-        calc(var(--y) * 2),
-        -900px
-      )
-      rotateZ(calc(var(--r) * 3))
-      rotateY(180deg);
-
+      translate(-50%,-50%)
+      translate(0,0)
+      rotate(0deg)
+      scale(.25);
     opacity:0;
   }
-
+  15%{opacity:1}
   55%{
-
-    opacity:1;
+    transform:
+      translate(-50%,-50%)
+      translate(var(--x),var(--y))
+      rotate(var(--r))
+      scale(1);
+    opacity:.9;
   }
-
   100%{
-
     transform:
-      translate3d(
-        var(--x),
-        var(--y),
-        0
-      )
-      rotateZ(var(--r))
-      rotateY(0deg);
-
-    opacity:1;
+      translate(-50%,-50%)
+      translate(calc(var(--x) * 1.7),calc(var(--y) * 1.7))
+      rotate(calc(var(--r) + 90deg))
+      scale(.15);
+    opacity:0;
   }
-
 }
 
-@keyframes cardFloat{
-
-  0%,100%{
-
-    transform:
-      translate3d(
-        var(--x),
-        var(--y),
-        0
-      )
-      rotateZ(var(--r))
-      rotateY(0deg);
-  }
-
-  50%{
-
-    transform:
-      translate3d(
-        var(--x),
-        calc(var(--y) - 22px),
-        70px
-      )
-      rotateZ(calc(var(--r) + 4deg))
-      rotateY(14deg);
-  }
-
-}
-
-/* =====================================================
-   SECTIONS
-===================================================== */
-
-section.content-section{
-
-  padding:
-    125px 6%;
-
-  position:relative;
-}
-
-.section-heading{
-
-  text-align:center;
-
-  margin-bottom:65px;
-}
-
-.section-heading span{
-
-  display:block;
-
-  font-size:9px;
-
-  letter-spacing:6px;
-
-  opacity:.5;
-
-  margin-bottom:16px;
-}
-
-.section-heading h2{
-
-  font-size:
-    clamp(38px,7vw,62px);
-
-  font-weight:normal;
-
-  margin-bottom:14px;
-}
-
-.section-heading p{
-
-  font-size:15px;
-
-  opacity:.52;
-}
-
-/* =====================================================
-   SERVICE WORLDS
-===================================================== */
-
-.worlds{
-
-  max-width:1150px;
-
-  margin:auto;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
-  gap:22px;
-}
-
-.world{
-
-  position:relative;
-
-  min-height:470px;
-
-  padding:35px 22px;
-
-  border:
-    1px solid
-    rgba(246,239,227,.14);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.07),
-      rgba(255,255,255,.012)
-    );
-
-  border-radius:8px;
-
-  overflow:hidden;
-
-  text-align:center;
-
-  transform-style:preserve-3d;
-
-  transition:
-    .55s
-    cubic-bezier(.2,.8,.2,1);
-}
-
-.world:hover{
-
-  transform:
-    translateY(-18px)
-    rotateX(5deg)
-    rotateY(-6deg);
-
-  border-color:
-    rgba(220,180,255,.45);
-
-  box-shadow:
-
-    0 35px 80px
-    rgba(0,0,0,.65),
-
-    0 0 40px
-    rgba(145,75,220,.15);
-}
-
-.world:nth-child(even):hover{
-
-  transform:
-    translateY(-18px)
-    rotateX(5deg)
-    rotateY(6deg);
-}
-
-/* =====================================================
-   TAROT MINI SCENE
-===================================================== */
-
-.mini-tarot{
-
-  width:125px;
-  height:175px;
-
-  margin:0 auto 30px;
-
-  position:relative;
-
-  transform-style:preserve-3d;
-}
-
-.mini-card{
-
+.card-face{
   position:absolute;
-
-  width:82px;
-  height:130px;
-
-  left:22px;
-  top:20px;
-
-  border:
-    1px solid
-    rgba(235,200,150,.55);
-
-  border-radius:7px;
-
-  background:
-    radial-gradient(
-      circle,
-      rgba(175,90,240,.22),
-      transparent 45%
-    ),
-    #11091a;
-
-  box-shadow:
-    0 15px 30px rgba(0,0,0,.6);
-
-  display:grid;
-  place-items:center;
-
-  font-size:30px;
-
-  transition:.6s;
-}
-
-.mini-card:nth-child(1){
-  transform:rotate(-18deg) translateX(-22px);
-}
-
-.mini-card:nth-child(2){
-  transform:rotate(0deg) translateZ(30px);
-}
-
-.mini-card:nth-child(3){
-  transform:rotate(18deg) translateX(22px);
-}
-
-.world:hover .mini-card:nth-child(1){
-  transform:
-    rotate(-28deg)
-    translateX(-42px)
-    translateY(-8px);
-}
-
-.world:hover .mini-card:nth-child(3){
-  transform:
-    rotate(28deg)
-    translateX(42px)
-    translateY(-8px);
-}
-
-/* =====================================================
-   I CHING BOOK
-===================================================== */
-
-.book-scene{
-
-  width:150px;
-  height:160px;
-
-  margin:0 auto 40px;
-
-  position:relative;
-
-  perspective:900px;
-}
-
-.book{
-
-  position:absolute;
-
-  left:50%;
-  top:30px;
-
-  width:125px;
-  height:95px;
-
-  transform:
-    translateX(-50%)
-    rotateX(15deg);
-
-  transform-style:preserve-3d;
-}
-
-.page{
-
-  position:absolute;
-
-  width:62px;
-  height:95px;
-
-  top:0;
-
-  background:
-    linear-gradient(
-      145deg,
-      #c7ad82,
-      #75613e
-    );
-
-  border:
-    1px solid
-    rgba(255,225,170,.45);
-
-  box-shadow:
-    0 12px 25px rgba(0,0,0,.55);
-}
-
-.page.left{
-  left:0;
-
-  transform-origin:right center;
-
-  animation:
-    bookOpenLeft
-    4s
-    ease-in-out
-    infinite alternate;
-}
-
-.page.right{
-  right:0;
-
-  transform-origin:left center;
-
-  animation:
-    bookOpenRight
-    4s
-    ease-in-out
-    infinite alternate;
-}
-
-.page::after{
-
-  content:"☯";
-
-  position:absolute;
-
   inset:0;
-
-  display:grid;
-
-  place-items:center;
-
-  color:#3a2517;
-
-  font-size:27px;
-}
-
-@keyframes bookOpenLeft{
-
-  from{
-    transform:rotateY(0deg);
-  }
-
-  to{
-    transform:rotateY(-42deg);
-  }
-
-}
-
-@keyframes bookOpenRight{
-
-  from{
-    transform:rotateY(0deg);
-  }
-
-  to{
-    transform:rotateY(42deg);
-  }
-
-}
-
-/* =====================================================
-   CRYSTAL
-===================================================== */
-
-.crystal{
-
-  width:130px;
-  height:180px;
-
-  margin:0 auto 20px;
-
-  position:relative;
-
-  display:grid;
-
-  place-items:center;
-}
-
-.crystal-core{
-
-  width:90px;
-  height:120px;
-
-  clip-path:
-    polygon(
-      50% 0,
-      88% 27%,
-      76% 100%,
-      24% 100%,
-      12% 27%
-    );
-
+  border-radius:8px;
+  border:1px solid rgba(230,190,255,.55);
   background:
-    linear-gradient(
-      145deg,
-      #e7caff,
-      #7a36a8 35%,
-      #180b25 75%
-    );
-
+    linear-gradient(135deg,#171021,#4b1d68,#110916);
   box-shadow:
-    0 0 35px
-    rgba(183,102,255,.55);
-
-  animation:
-    crystalFloat
-    4s
-    ease-in-out
-    infinite;
+    0 0 20px rgba(163,83,255,.35),
+    inset 0 0 15px rgba(255,255,255,.05);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  backface-visibility:hidden;
 }
 
-@keyframes crystalFloat{
-
-  50%{
-    transform:
-      translateY(-12px)
-      rotateY(18deg);
-  }
-
+.card-face:before{
+  content:"✦";
+  font-size:35px;
+  color:#d7adff;
+  text-shadow:0 0 20px #ae55ff;
 }
 
-/* =====================================================
-   SIBILLE FAN
-===================================================== */
+.card-face.back{
+  transform:rotateY(180deg);
+}
 
-.sibille-fan{
+.fly-card:nth-child(odd) .card-face{
+  background:
+    linear-gradient(135deg,#0c0914,#261238,#0a0610);
+}
 
-  width:150px;
-  height:175px;
+/* =========================
+   SECTION
+========================= */
 
-  margin:0 auto 25px;
-
+.section{
+  padding:120px 6%;
   position:relative;
 }
 
-.sibille-card{
-
-  position:absolute;
-
-  left:35px;
-  top:20px;
-
-  width:80px;
-  height:125px;
-
-  border:
-    1px solid
-    rgba(235,200,150,.5);
-
-  border-radius:6px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #21122d,
-      #09060d
-    );
-
-  display:grid;
-
-  place-items:center;
-
-  font-size:28px;
-
-  transition:.6s;
+.section-title{
+  text-align:center;
+  margin-bottom:70px;
 }
 
-.sibille-card:nth-child(1){
-  transform:rotate(-30deg);
-}
-
-.sibille-card:nth-child(2){
-  transform:rotate(-15deg);
-}
-
-.sibille-card:nth-child(3){
-  transform:rotate(0deg);
-}
-
-.sibille-card:nth-child(4){
-  transform:rotate(15deg);
-}
-
-.sibille-card:nth-child(5){
-  transform:rotate(30deg);
-}
-
-.world:hover .sibille-card:nth-child(1){
-  transform:rotate(-42deg) translateY(-10px);
-}
-
-.world:hover .sibille-card:nth-child(5){
-  transform:rotate(42deg) translateY(-10px);
-}
-
-/* =====================================================
-   WORLD TEXT
-===================================================== */
-
-.world h3{
-
-  font-size:25px;
-
-  font-weight:normal;
-
+.section-title span{
+  display:block;
+  font-size:9px;
+  letter-spacing:5px;
+  opacity:.45;
   margin-bottom:15px;
 }
 
-.world p{
+.section-title h2{
+  font-size:clamp(30px,6vw,55px);
+  letter-spacing:4px;
+}
 
-  font-size:12px;
-
+.section-title p{
+  max-width:550px;
+  margin:18px auto 0;
+  font-size:13px;
   line-height:1.8;
-
   opacity:.55;
-
-  min-height:70px;
 }
 
-.world .price{
+/* =========================
+   WORLD CARDS
+========================= */
 
-  font-size:19px;
-
-  margin:18px 0 22px;
-}
-
-/* =====================================================
-   HOW IT WORKS
-===================================================== */
-
-.steps{
-
-  max-width:950px;
-
+.world-grid{
+  max-width:1200px;
   margin:auto;
-
   display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
+  grid-template-columns:repeat(2,1fr);
   gap:25px;
+}
 
-  text-align:center;
+.world{
+  position:relative;
+  min-height:520px;
+  border:1px solid rgba(220,180,255,.12);
+  background:
+    radial-gradient(circle at center,rgba(100,45,140,.12),transparent 60%),
+    rgba(10,5,17,.65);
+  border-radius:25px;
+  overflow:hidden;
+  transition:.6s;
+  transform-style:preserve-3d;
+}
+
+.world:hover{
+  transform:translateY(-10px);
+  border-color:rgba(201,135,255,.35);
+  box-shadow:0 25px 80px rgba(86,31,128,.25);
+}
+
+.world-info{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:35px;
+  z-index:10;
+  background:linear-gradient(transparent,rgba(3,2,7,.95) 40%);
+}
+
+.world-info .type{
+  font-size:9px;
+  letter-spacing:4px;
+  opacity:.5;
+}
+
+.world-info h3{
+  font-size:30px;
+  margin:8px 0;
+}
+
+.world-info p{
+  font-size:12px;
+  line-height:1.7;
+  opacity:.6;
+  max-width:430px;
+}
+
+.world-button{
+  display:inline-block;
+  margin-top:20px;
+  padding:11px 20px;
+  border:1px solid rgba(220,180,255,.3);
+  border-radius:999px;
+  font-size:9px;
+  letter-spacing:2px;
+  transition:.3s;
+}
+
+.world-button:hover{
+  background:#8e48c9;
+}
+
+/* =========================
+   TAROT WORLD
+========================= */
+
+.tarot-scene{
+  position:absolute;
+  inset:0;
+  perspective:900px;
+}
+
+.deck{
+  position:absolute;
+  top:35%;
+  left:50%;
+  width:120px;
+  height:190px;
+  transform:translate(-50%,-50%) rotateX(8deg);
+  transform-style:preserve-3d;
+  transition:.6s;
+}
+
+.tarot-card{
+  position:absolute;
+  inset:0;
+  border-radius:10px;
+  border:1px solid rgba(230,190,255,.6);
+  background:
+    linear-gradient(145deg,#100817,#53206d,#16091f);
+  box-shadow:0 0 35px rgba(161,72,230,.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:Cinzel;
+  color:#e4c7ff;
+  transition:1s;
+}
+
+.tarot-card:before{
+  content:"✦";
+  font-size:45px;
+  text-shadow:0 0 25px #b75dff;
+}
+
+.tarot-card:nth-child(1){
+  transform:translateZ(0);
+}
+.tarot-card:nth-child(2){
+  transform:translateZ(-10px) rotate(-4deg);
+}
+.tarot-card:nth-child(3){
+  transform:translateZ(-20px) rotate(5deg);
+}
+.tarot-card:nth-child(4){
+  transform:translateZ(-30px) rotate(-7deg);
+}
+.tarot-card:nth-child(5){
+  transform:translateZ(-40px) rotate(8deg);
+}
+
+.world:hover .tarot-card:nth-child(1){
+  transform:translateZ(90px) rotate(-8deg);
+}
+.world:hover .tarot-card:nth-child(2){
+  transform:translateZ(30px) rotate(5deg) translateX(35px);
+}
+.world:hover .tarot-card:nth-child(3){
+  transform:translateZ(20px) rotate(-4deg) translateX(-35px);
+}
+
+/* =========================
+   I CHING BOOK
+========================= */
+
+.iching-scene{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  perspective:1000px;
+}
+
+.book{
+  width:270px;
+  height:190px;
+  position:relative;
+  transform-style:preserve-3d;
+  transform:rotateX(18deg);
+  transition:1s;
+}
+
+.book-cover{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(135deg,#29150d,#8b5b26,#241309);
+  border:1px solid #b98a4c;
+  border-radius:6px;
+  box-shadow:0 20px 50px rgba(0,0,0,.7);
+}
+
+.book-page{
+  position:absolute;
+  top:8px;
+  bottom:8px;
+  width:50%;
+  background:
+    linear-gradient(90deg,#d7c29c,#f0dfb6,#b99e6d);
+  border:1px solid rgba(80,45,15,.5);
+  transform-origin:left center;
+  transition:1.2s;
+  color:#38230e;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:Cinzel;
+  font-size:35px;
+}
+
+.book-page.left{
+  left:0;
+  border-radius:5px 0 0 5px;
+  transform-origin:right center;
+}
+
+.book-page.right{
+  right:0;
+  border-radius:0 5px 5px 0;
+}
+
+.world:hover .book-page.left{
+  transform:rotateY(55deg);
+}
+
+.world:hover .book-page.right{
+  transform:rotateY(-55deg);
+}
+
+.hexagrams{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+.hex{
+  position:absolute;
+  font-family:Cinzel;
+  color:#cda45e;
+  font-size:25px;
+  text-shadow:0 0 15px #c18c3f;
+  animation:hexFloat 5s ease-in-out infinite;
+}
+
+.hex:nth-child(1){left:15%;top:20%}
+.hex:nth-child(2){right:15%;top:25%;animation-delay:1s}
+.hex:nth-child(3){left:20%;bottom:35%;animation-delay:2s}
+.hex:nth-child(4){right:18%;bottom:32%;animation-delay:3s}
+
+@keyframes hexFloat{
+  50%{transform:translateY(-15px) rotate(8deg);opacity:.5}
+}
+
+/* =========================
+   ORACLE
+========================= */
+
+.oracle-scene{
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.crystal{
+  width:175px;
+  height:175px;
+  border-radius:50%;
+  position:relative;
+  background:
+    radial-gradient(circle at 32% 25%,#fff 0%,#d9b6ff 5%,#8d4bd0 22%,#321348 52%,#09030e 75%);
+  box-shadow:
+    0 0 25px #b35bff,
+    0 0 100px rgba(153,60,255,.55),
+    inset -30px -20px 45px rgba(0,0,0,.8);
+  animation:crystalFloat 4s ease-in-out infinite;
+}
+
+.crystal:before,
+.crystal:after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(224,185,255,.3);
+  animation:spin 8s linear infinite;
+}
+
+.crystal:before{
+  inset:-25px;
+}
+
+.crystal:after{
+  inset:-50px;
+  animation-duration:15s;
+  animation-direction:reverse;
+}
+
+@keyframes crystalFloat{
+  50%{transform:translateY(-18px) scale(1.04)}
+}
+
+.energy{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:#e1b9ff;
+  border-radius:50%;
+  box-shadow:0 0 20px #be67ff;
+  animation:energyFly 4s linear infinite;
+}
+
+.energy:nth-child(2){animation-delay:1s}
+.energy:nth-child(3){animation-delay:2s}
+.energy:nth-child(4){animation-delay:3s}
+
+@keyframes energyFly{
+  from{
+    transform:rotate(0deg) translateX(100px) rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg) translateX(100px) rotate(-360deg);
+  }
+}
+
+/* =========================
+   SIBILLE
+========================= */
+
+.sibille-scene{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  perspective:1000px;
+}
+
+.sibille-table{
+  position:relative;
+  width:300px;
+  height:240px;
+  border-radius:50%;
+  background:
+    radial-gradient(ellipse,#24112d,#100813 60%,#050307);
+  box-shadow:0 30px 70px rgba(0,0,0,.8);
+}
+
+.s-card{
+  position:absolute;
+  width:70px;
+  height:105px;
+  left:50%;
+  top:50%;
+  margin:-52px 0 0 -35px;
+  border-radius:6px;
+  background:
+    linear-gradient(145deg,#1a0d23,#59206e,#130817);
+  border:1px solid rgba(224,184,255,.5);
+  box-shadow:0 8px 25px rgba(0,0,0,.7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#d8a8ff;
+  font-family:Cinzel;
+  transition:1s cubic-bezier(.2,.8,.2,1);
+}
+
+.s-card:after{
+  content:"✦";
+  font-size:25px;
+}
+
+.world:hover .s-card:nth-child(1){
+  transform:translate(-100px,-30px) rotate(-25deg);
+}
+.world:hover .s-card:nth-child(2){
+  transform:translate(-50px,-75px) rotate(-12deg);
+}
+.world:hover .s-card:nth-child(3){
+  transform:translate(0,-85px) rotate(0deg);
+}
+.world:hover .s-card:nth-child(4){
+  transform:translate(50px,-75px) rotate(12deg);
+}
+.world:hover .s-card:nth-child(5){
+  transform:translate(100px,-30px) rotate(25deg);
+}
+
+/* =========================
+   PROCESS
+========================= */
+
+.process{
+  max-width:1000px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
 }
 
 .step{
-
-  padding:25px;
-
+  text-align:center;
+  padding:35px 20px;
+  border:1px solid rgba(220,180,255,.1);
+  border-radius:20px;
+  background:rgba(15,7,22,.5);
   transition:.4s;
 }
 
 .step:hover{
-
-  transform:
-    translateY(-10px)
-    scale(1.03);
+  transform:translateY(-8px);
+  border-color:rgba(207,143,255,.3);
 }
 
-.number{
-
-  font-size:31px;
-
-  opacity:.7;
-
-  margin-bottom:15px;
-
-  text-shadow:
-    0 0 20px
-    rgba(190,120,255,.5);
+.step-number{
+  font-family:Cinzel;
+  font-size:35px;
+  color:#b96aff;
+  text-shadow:0 0 20px rgba(178,87,255,.5);
 }
 
 .step h3{
-
-  font-weight:normal;
-
-  margin-bottom:10px;
+  margin:15px 0 10px;
+  font-size:15px;
+  letter-spacing:1px;
 }
 
 .step p{
-
-  font-size:12px;
-
+  font-size:11px;
   line-height:1.7;
-
   opacity:.5;
 }
 
-/* =====================================================
+/* =========================
+   WAITING READING
+========================= */
+
+.waiting{
+  max-width:900px;
+  margin:auto;
+  min-height:400px;
+  border-radius:30px;
+  border:1px solid rgba(200,140,255,.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle,rgba(107,43,151,.15),transparent 60%);
+}
+
+.waiting-card{
+  width:110px;
+  height:175px;
+  border:1px solid rgba(225,188,255,.6);
+  border-radius:10px;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #160a20 0px,
+      #160a20 8px,
+      #21102e 8px,
+      #21102e 16px
+    );
+  box-shadow:0 0 40px rgba(157,68,232,.3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  animation:waitingFloat 3s ease-in-out infinite;
+  margin:0 auto 30px;
+}
+
+.waiting-card:after{
+  content:"✦";
+  font-size:40px;
+  color:#d9aeff;
+}
+
+@keyframes waitingFloat{
+  50%{
+    transform:translateY(-15px) rotateY(15deg);
+  }
+}
+
+.waiting-content h2{
+  font-size:28px;
+  margin-bottom:12px;
+}
+
+.waiting-content p{
+  max-width:480px;
+  margin:auto;
+  font-size:12px;
+  line-height:1.8;
+  opacity:.55;
+}
+
+/* =========================
    ABOUT
-===================================================== */
+========================= */
 
 .about{
-
-  max-width:780px;
-
+  max-width:800px;
   margin:auto;
-
   text-align:center;
 }
 
 .about p{
-
-  font-size:17px;
-
+  font-size:14px;
   line-height:2;
-
-  opacity:.62;
+  opacity:.6;
 }
-
-/* =====================================================
-   FUTURE
-===================================================== */
 
 .future{
+  margin-top:40px;
+  padding:25px;
+  border:1px dashed rgba(210,160,255,.18);
+  border-radius:15px;
+  font-size:11px;
+  letter-spacing:1px;
+  opacity:.55;
+}
 
-  max-width:850px;
+/* =========================
+   CTA
+========================= */
 
-  margin:auto;
-
+.final-cta{
   text-align:center;
-
-  border-top:
-    1px solid
-    rgba(246,239,227,.1);
+  padding:130px 20px;
 }
 
-.future p{
-
-  font-size:15px;
-
-  line-height:1.9;
-
-  opacity:.5;
+.final-cta h2{
+  font-size:clamp(35px,7vw,65px);
+  margin-bottom:20px;
 }
 
-/* =====================================================
+.final-cta p{
+  opacity:.55;
+  font-size:13px;
+  margin-bottom:30px;
+}
+
+/* =========================
    FOOTER
-===================================================== */
+========================= */
 
 footer{
-
-  border-top:
-    1px solid
-    rgba(246,239,227,.1);
-
-  padding:45px 20px;
-
-  text-align:center;
-
+  padding:40px 6%;
+  border-top:1px solid rgba(255,255,255,.06);
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
   font-size:9px;
-
-  letter-spacing:3px;
-
-  opacity:.38;
+  letter-spacing:2px;
+  opacity:.4;
 }
 
-/* =====================================================
+/* =========================
    MOBILE
-===================================================== */
+========================= */
 
-@media(max-width:950px){
+@media(max-width:800px){
 
-  .worlds{
-
-    grid-template-columns:
-      repeat(2,1fr);
+  .nav-links{
+    display:none;
   }
-
-  .steps{
-
-    grid-template-columns:
-      repeat(2,1fr);
-  }
-
-  .tarot-fly{
-
-    width:90px;
-    height:145px;
-
-    margin-left:-45px;
-    margin-top:-72px;
-  }
-
-  .tarot-fly:nth-child(5){
-    --x:-205px;
-    --y:-120px;
-  }
-
-  .tarot-fly:nth-child(6){
-    --x:185px;
-    --y:-115px;
-  }
-
-  .tarot-fly:nth-child(7){
-    --x:-220px;
-    --y:100px;
-  }
-
-  .tarot-fly:nth-child(8){
-    --x:200px;
-    --y:105px;
-  }
-
-  .tarot-fly:nth-child(9){
-    --x:-55px;
-    --y:-175px;
-  }
-
-  .tarot-fly:nth-child(10){
-    --x:50px;
-    --y:170px;
-  }
-
-}
-
-@media(max-width:560px){
 
   nav{
-
-    padding:
-      20px 17px;
-  }
-
-  nav a{
-
-    font-size:7px;
-
-    margin-left:8px;
-  }
-
-  .logo{
-
-    font-size:10px;
-
-    letter-spacing:2px;
+    padding:18px 5%;
   }
 
   .hero{
-
     min-height:100svh;
   }
 
-  h1{
-
-    font-size:57px;
-
-    letter-spacing:2px;
+  .hero-orbit{
+    width:110vw;
+    height:110vw;
   }
 
-  .eyebrow{
-
-    font-size:7px;
-
-    letter-spacing:3px;
-  }
-
-  .orb{
-
-    width:95px;
-    height:95px;
-  }
-
-  .ring.one{
-
-    width:115vw;
-    height:115vw;
-  }
-
-  .ring.two{
-
-    width:90vw;
-    height:90vw;
-  }
-
-  .ring.three{
-
-    width:70vw;
-    height:70vw;
-  }
-
-  .tarot-fly{
-
+  .fly-card{
     width:65px;
     height:105px;
-
-    margin-left:-32px;
-    margin-top:-52px;
   }
 
-  .tarot-card::before{
-
-    font-size:23px;
-
-    margin-bottom:8px;
-  }
-
-  .tarot-card span{
-
-    font-size:6px;
-    letter-spacing:1px;
-  }
-
-  .tarot-fly:nth-child(5){
-    --x:-108px;
-    --y:-72px;
-  }
-
-  .tarot-fly:nth-child(6){
-    --x:100px;
-    --y:-78px;
-  }
-
-  .tarot-fly:nth-child(7){
-    --x:-115px;
-    --y:70px;
-  }
-
-  .tarot-fly:nth-child(8){
-    --x:108px;
-    --y:75px;
-  }
-
-  .tarot-fly:nth-child(9){
-    --x:-25px;
-    --y:-125px;
-  }
-
-  .tarot-fly:nth-child(10){
-    --x:25px;
-    --y:125px;
-  }
-
-  section.content-section{
-
-    padding:
-      90px 18px;
-  }
-
-  .worlds{
-
-    grid-template-columns:
-      1fr;
-  }
-
-  .steps{
-
-    grid-template-columns:
-      1fr;
+  .world-grid{
+    grid-template-columns:1fr;
   }
 
   .world{
-
-    min-height:440px;
+    min-height:480px;
   }
 
+  .process{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .section{
+    padding:90px 5%;
+  }
+
+  .portal-core{
+    transform:scale(.8);
+  }
+
+  .hero h1{
+    letter-spacing:5px;
+  }
 }
 
+@media(max-width:450px){
+
+  .process{
+    grid-template-columns:1fr;
+  }
+
+  .world-info{
+    padding:25px;
+  }
+
+  .world-info h3{
+    font-size:25px;
+  }
+
+  .waiting{
+    min-height:350px;
+  }
+}
 </style>
 </head>
 
-
 <body>
 
+<!-- =========================
+     PORTAL INTRO
+========================= -->
+
+<div id="portal">
+
+  <div class="portal-stars"></div>
+
+  <div class="portal-core">
+
+    <div class="portal-ring">
+      <div class="orbit-dot"></div>
+    </div>
+
+    <div class="portal-ring">
+      <div class="orbit-dot"></div>
+    </div>
+
+    <div class="portal-ring">
+      <div class="orbit-dot"></div>
+    </div>
+
+    <div class="portal-ring"></div>
+
+    <div class="portal-orb"></div>
+
+  </div>
+
+  <div class="portal-content">
+
+    <h1>THE ZENTAROT CO.</h1>
+
+    <p>BEYOND THE VISIBLE</p>
+
+    <button class="enter" id="enterButton">
+      ENTER THE EXPERIENCE
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     MAIN SITE
+========================= -->
+
+<div id="site">
+
+<div class="background"></div>
 <div class="stars"></div>
+<div class="particles" id="particles"></div>
 
-<div id="particles"></div>
 
-
-<!-- =====================================================
-     NAVIGATION
-===================================================== -->
+<!-- NAV -->
 
 <nav>
 
   <div class="logo">
-    THE ZENTAROT CO
+    THE ZENTAROT CO.
   </div>
 
-  <div>
-
-    <a href="#readings">
-      READINGS
-    </a>
-
-    <a href="#about">
-      ABOUT
-    </a>
-
+  <div class="nav-links">
+    <a href="#readings">READINGS</a>
+    <a href="#process">HOW IT WORKS</a>
+    <a href="#about">ABOUT</a>
   </div>
 
 </nav>
 
 
-<!-- =====================================================
+<!-- =========================
      HERO
-===================================================== -->
+========================= -->
 
-<section class="hero">
+<section class="hero" id="home">
 
-  <div class="ring one"></div>
-  <div class="ring two"></div>
-  <div class="ring three"></div>
+  <div class="hero-orbit">
 
-  <div class="orb"></div>
-
-
-  <!-- FLYING CARDS -->
-
-  <div class="tarot-fly">
-    <div class="tarot-card">
-      <span>THE MOON</span>
+    <div class="orbit">
+      <div class="orbit-dot"></div>
     </div>
-  </div>
 
-  <div class="tarot-fly">
-    <div class="tarot-card">
-      <span>THE SUN</span>
+    <div class="orbit two">
+      <div class="orbit-dot"></div>
     </div>
-  </div>
 
-  <div class="tarot-fly">
-    <div class="tarot-card">
-      <span>THE STAR</span>
+    <div class="orbit three">
+      <div class="orbit-dot"></div>
     </div>
-  </div>
 
-  <div class="tarot-fly">
-    <div class="tarot-card">
-      <span>THE WORLD</span>
-    </div>
-  </div>
-
-  <div class="tarot-fly">
-    <div class="tarot-card">
-      <span>THE PRIESTESS</span>
-    </div>
-  </div>
-
-  <div class="tarot-fly">
-    <div class="tarot-card">
-      <span>THE MAGICIAN</span>
-    </div>
   </div>
 
 
-  <!-- HERO TEXT -->
+  <div class="flying-cards">
 
-  <div class="hero-content">
+    <div class="fly-card" style="--x:-300px;--y:-120px;--r:-25deg;--duration:7s;--delay:0s">
+      <div class="card-face"></div>
+      <div class="card-face back"></div>
+    </div>
+
+    <div class="fly-card" style="--x:300px;--y:-150px;--r:28deg;--duration:8s;--delay:1s">
+      <div class="card-face"></div>
+      <div class="card-face back"></div>
+    </div>
+
+    <div class="fly-card" style="--x:-340px;--y:150px;--r:35deg;--duration:9s;--delay:2s">
+      <div class="card-face"></div>
+      <div class="card-face back"></div>
+    </div>
+
+    <div class="fly-card" style="--x:350px;--y:130px;--r:-35deg;--duration:8s;--delay:3s">
+      <div class="card-face"></div>
+      <div class="card-face back"></div>
+    </div>
+
+    <div class="fly-card" style="--x:-180px;--y:250px;--r:-15deg;--duration:7s;--delay:4s">
+      <div class="card-face"></div>
+      <div class="card-face back"></div>
+    </div>
+
+    <div class="fly-card" style="--x:190px;--y:-260px;--r:20deg;--duration:10s;--delay:2s">
+      <div class="card-face"></div>
+      <div class="card-face back"></div>
+    </div>
+
+  </div>
+
+
+  <div class="hero-inner">
 
     <div class="eyebrow">
-
-      TAROT • I CHING • ORACLE • SIBILLE
-
+      TAROT · I CHING · ORACLE · SIBILLE
     </div>
 
     <h1>
-
       THE<br>
-      ZENTAROT<br>
-      CO
-
+      ZENTAROT CO.
     </h1>
 
-    <div class="subtitle">
+    <p class="hero-sub">
+      Step beyond the visible.
+      Discover a world of symbols, intuition and personal readings.
+    </p>
 
-      Discover what lies beyond the visible.
-
-    </div>
-
-    <a
-      href="#readings"
-      class="button"
-    >
-
-      ENTER THE EXPERIENCE
-
+    <a href="#readings" class="hero-button">
+      EXPLORE THE WORLDS
     </a>
 
   </div>
@@ -1674,250 +1311,247 @@ footer{
 </section>
 
 
-<!-- =====================================================
+<!-- =========================
      READINGS
-===================================================== -->
+========================= -->
 
-<section
-  class="content-section"
-  id="readings"
->
+<section class="section" id="readings">
 
-  <div class="section-heading">
+  <div class="section-title">
 
-    <span>
-      ENTER YOUR WORLD
-    </span>
+    <span>ENTER THE WORLDS</span>
 
-    <h2>
-      Choose Your Reading
-    </h2>
+    <h2>Choose Your Path</h2>
 
     <p>
-      Four different paths. One question at a time.
+      Four different systems. One personal experience.
+      Your question becomes the beginning of the reading.
     </p>
 
   </div>
 
 
-  <div class="worlds">
+  <div class="world-grid">
 
 
     <!-- TAROT -->
 
-    <div class="world">
+    <article class="world">
 
-      <div class="mini-tarot">
+      <div class="tarot-scene">
 
-        <div class="mini-card">
-          ☾
-        </div>
+        <div class="deck">
 
-        <div class="mini-card">
-          ✦
-        </div>
+          <div class="tarot-card"></div>
+          <div class="tarot-card"></div>
+          <div class="tarot-card"></div>
+          <div class="tarot-card"></div>
+          <div class="tarot-card"></div>
 
-        <div class="mini-card">
-          ☀
         </div>
 
       </div>
 
-      <h3>
-        Tarot
-      </h3>
+      <div class="world-info">
 
-      <p>
+        <div class="type">
+          ARCANA
+        </div>
 
-        Explore the symbols,
-        energies and archetypes
-        surrounding your question.
+        <h3>Tarot</h3>
 
-      </p>
+        <p>
+          Enter the world of the cards and bring your personal
+          question forward. Your reading is personally prepared for you.
+        </p>
 
-      <div class="price">
-        €15
+        <a
+          class="world-button"
+          href="https://thezentarotco.etsy.com"
+          target="_blank">
+          REQUEST A READING
+        </a>
+
       </div>
 
-      <a
-        class="button"
-        href="https://thezentarotco.etsy.com"
-      >
-        ENTER
-      </a>
-
-    </div>
+    </article>
 
 
     <!-- I CHING -->
 
-    <div class="world">
+    <article class="world">
 
-      <div class="book-scene">
+      <div class="iching-scene">
+
+        <div class="hexagrams">
+
+          <div class="hex">☷</div>
+          <div class="hex">☰</div>
+          <div class="hex">☵</div>
+          <div class="hex">☲</div>
+
+        </div>
 
         <div class="book">
 
-          <div class="page left"></div>
-          <div class="page right"></div>
+          <div class="book-cover"></div>
+
+          <div class="book-page left">
+            ☯
+          </div>
+
+          <div class="book-page right">
+            ☰
+          </div>
 
         </div>
 
       </div>
 
-      <h3>
-        I Ching
-      </h3>
+      <div class="world-info">
 
-      <p>
+        <div class="type">
+          ANCIENT ORACLE
+        </div>
 
-        Open the ancient book
-        and explore symbolic
-        guidance and reflection.
+        <h3>I Ching</h3>
 
-      </p>
+        <p>
+          A symbolic journey through the ancient Book of Changes.
+          Send your question and receive a personal interpretation.
+        </p>
 
-      <div class="price">
-        €15
+        <a
+          class="world-button"
+          href="https://thezentarotco.etsy.com"
+          target="_blank">
+          REQUEST A READING
+        </a>
+
       </div>
 
-      <a
-        class="button"
-        href="https://thezentarotco.etsy.com"
-      >
-        ENTER
-      </a>
-
-    </div>
+    </article>
 
 
     <!-- ORACLE -->
 
-    <div class="world">
+    <article class="world">
 
-      <div class="crystal">
+      <div class="oracle-scene">
 
-        <div class="crystal-core"></div>
+        <div class="crystal">
+
+          <div class="energy"></div>
+          <div class="energy"></div>
+          <div class="energy"></div>
+          <div class="energy"></div>
+
+        </div>
 
       </div>
 
-      <h3>
-        Oracle
-      </h3>
+      <div class="world-info">
 
-      <p>
+        <div class="type">
+          INTUITION
+        </div>
 
-        Let intuition guide
-        the message created
-        around your question.
+        <h3>Oracle</h3>
 
-      </p>
+        <p>
+          Let the symbols guide the atmosphere around your question.
+          Your personal oracle reading is prepared after your purchase.
+        </p>
 
-      <div class="price">
-        €12
+        <a
+          class="world-button"
+          href="https://thezentarotco.etsy.com"
+          target="_blank">
+          REQUEST A READING
+        </a>
+
       </div>
 
-      <a
-        class="button"
-        href="https://thezentarotco.etsy.com"
-      >
-        ENTER
-      </a>
-
-    </div>
+    </article>
 
 
     <!-- SIBILLE -->
 
-    <div class="world">
+    <article class="world">
 
-      <div class="sibille-fan">
+      <div class="sibille-scene">
 
-        <div class="sibille-card">
-          ☽
-        </div>
+        <div class="sibille-table">
 
-        <div class="sibille-card">
-          ♣
-        </div>
+          <div class="s-card"></div>
+          <div class="s-card"></div>
+          <div class="s-card"></div>
+          <div class="s-card"></div>
+          <div class="s-card"></div>
 
-        <div class="sibille-card">
-          ♢
-        </div>
-
-        <div class="sibille-card">
-          ♠
-        </div>
-
-        <div class="sibille-card">
-          ♥
         </div>
 
       </div>
 
-      <h3>
-        Sibille
-      </h3>
+      <div class="world-info">
 
-      <p>
+        <div class="type">
+          CLASSIC SYMBOLS
+        </div>
 
-        A traditional reading
-        focused on your situation
-        and personal question.
+        <h3>Sibille</h3>
 
-      </p>
+        <p>
+          Enter a world of classic symbolic cards.
+          The spread remains hidden until your personal reading is prepared.
+        </p>
 
-      <div class="price">
-        €12
+        <a
+          class="world-button"
+          href="https://thezentarotco.etsy.com"
+          target="_blank">
+          REQUEST A READING
+        </a>
+
       </div>
 
-      <a
-        class="button"
-        href="https://thezentarotco.etsy.com"
-      >
-        ENTER
-      </a>
-
-    </div>
-
+    </article>
 
   </div>
 
 </section>
 
 
-<!-- =====================================================
+<!-- =========================
      HOW IT WORKS
-===================================================== -->
+========================= -->
 
-<section class="content-section">
+<section class="section" id="process">
 
-  <div class="section-heading">
+  <div class="section-title">
 
-    <span>
-      THE JOURNEY
-    </span>
+    <span>THE EXPERIENCE</span>
 
-    <h2>
-      How It Works
-    </h2>
+    <h2>How It Works</h2>
+
+    <p>
+      The website creates the atmosphere.
+      The reading itself is personally prepared for you.
+    </p>
 
   </div>
 
 
-  <div class="steps">
+  <div class="process">
 
     <div class="step">
 
-      <div class="number">
-        01
-      </div>
+      <div class="step-number">01</div>
 
-      <h3>
-        Choose
-      </h3>
+      <h3>CHOOSE</h3>
 
       <p>
-        Select your path.
+        Choose Tarot, I Ching, Oracle or Sibille.
       </p>
 
     </div>
@@ -1925,16 +1559,12 @@ footer{
 
     <div class="step">
 
-      <div class="number">
-        02
-      </div>
+      <div class="step-number">02</div>
 
-      <h3>
-        Ask
-      </h3>
+      <h3>ASK</h3>
 
       <p>
-        Share your question.
+        Purchase your reading and send your question.
       </p>
 
     </div>
@@ -1942,16 +1572,12 @@ footer{
 
     <div class="step">
 
-      <div class="number">
-        03
-      </div>
+      <div class="step-number">03</div>
 
-      <h3>
-        Receive
-      </h3>
+      <h3>I READ</h3>
 
       <p>
-        Your reading is prepared.
+        Your reading is personally created around your question.
       </p>
 
     </div>
@@ -1959,16 +1585,12 @@ footer{
 
     <div class="step">
 
-      <div class="number">
-        04
-      </div>
+      <div class="step-number">04</div>
 
-      <h3>
-        Reflect
-      </h3>
+      <h3>RECEIVE</h3>
 
       <p>
-        Explore the message.
+        Wait for your personalized response.
       </p>
 
     </div>
@@ -1978,197 +1600,299 @@ footer{
 </section>
 
 
-<!-- =====================================================
-     ABOUT
-===================================================== -->
+<!-- =========================
+     WAITING READING
+========================= -->
 
-<section
-  class="content-section"
-  id="about"
->
+<section class="section">
+
+  <div class="waiting">
+
+    <div class="waiting-content">
+
+      <div class="waiting-card"></div>
+
+      <h2>
+        Your Reading Is Being Prepared
+      </h2>
+
+      <p>
+        Your cards are not automatically interpreted by a machine.
+        Each reading is personally prepared around the question you send.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="section" id="about">
+
+  <div class="section-title">
+
+    <span>THE ZENTAROT CO.</span>
+
+    <h2>Beyond The Visible</h2>
+
+  </div>
 
   <div class="about">
 
-    <div class="section-heading">
-
-      <span>
-        ABOUT THE BRAND
-      </span>
-
-      <h2>
-        The Zentarot Co
-      </h2>
-
-    </div>
-
     <p>
-
-      A digital space dedicated to Tarot,
-      I Ching, Oracle and Sibille readings —
-      created for moments of curiosity,
-      reflection and intuition.
-
+      The Zentarot Co. is a digital space dedicated to symbolic
+      systems, intuition and personal readings.
+      Tarot, I Ching, Oracle and Sibille become different doors
+      into the same mysterious world.
     </p>
+
+    <div class="future">
+      MORE EXPERIENCES MAY APPEAR HERE IN THE FUTURE.
+    </div>
 
   </div>
 
 </section>
 
 
-<!-- =====================================================
-     FUTURE
-===================================================== -->
+<!-- =========================
+     FINAL CTA
+========================= -->
 
-<section class="content-section">
+<section class="final-cta">
 
-  <div class="future">
+  <h2>
+    Ask Your Question.
+  </h2>
 
-    <div class="section-heading">
+  <p>
+    The journey begins with a single question.
+  </p>
 
-      <span>
-        THE JOURNEY CONTINUES
-      </span>
-
-      <h2>
-        More To Come
-      </h2>
-
-    </div>
-
-    <p>
-
-      New digital experiences,
-      services and mystical paths
-      will appear here in the future.
-
-    </p>
-
-  </div>
+  <a
+    class="hero-button"
+    href="https://thezentarotco.etsy.com"
+    target="_blank">
+    ENTER THE ZENTAROT CO.
+  </a>
 
 </section>
 
 
 <footer>
 
-  © 2026 THE ZENTAROT CO
+  <div>
+    © 2026 THE ZENTAROT CO.
+  </div>
+
+  <div>
+    TAROT · I CHING · ORACLE · SIBILLE
+  </div>
 
 </footer>
+
+</div>
 
 
 <script>
 
-/* =====================================================
-   PARTICLES
-===================================================== */
+/* =========================
+   PORTAL ENTER
+========================= */
 
-const particleBox =
+const portal = document.getElementById("portal");
+const site = document.getElementById("site");
+const enterButton = document.getElementById("enterButton");
+
+enterButton.addEventListener("click", () => {
+
+  portal.classList.add("hide");
+
+  setTimeout(() => {
+    site.classList.add("visible");
+  },500);
+
+});
+
+
+/* =========================
+   PARTICLES
+========================= */
+
+const particleContainer =
   document.getElementById("particles");
 
-for(let i=0;i<90;i++){
+for(let i=0;i<55;i++){
 
-  const p =
+  const particle =
     document.createElement("div");
 
-  p.className="particle";
+  particle.className="particle";
 
-  p.style.left =
+  particle.style.left =
     Math.random()*100+"%";
 
-  p.style.animationDuration =
-    (7 + Math.random()*18)+"s";
+  particle.style.animationDuration =
+    (8+Math.random()*16)+"s";
 
-  p.style.animationDelay =
+  particle.style.animationDelay =
     (-Math.random()*20)+"s";
 
-  p.style.opacity =
-    (.15 + Math.random()*.6);
+  particle.style.opacity =
+    Math.random();
 
-  particleBox.appendChild(p);
+  const size =
+    1+Math.random()*3;
+
+  particle.style.width=size+"px";
+  particle.style.height=size+"px";
+
+  particleContainer.appendChild(particle);
 
 }
 
 
-/* =====================================================
-   MOUSE PARALLAX
-===================================================== */
+/* =========================
+   POINTER PARALLAX
+========================= */
 
 const hero =
   document.querySelector(".hero");
 
-const content =
-  document.querySelector(".hero-content");
+const heroInner =
+  document.querySelector(".hero-inner");
 
-const cards =
-  document.querySelectorAll(".tarot-fly");
+const heroOrbit =
+  document.querySelector(".hero-orbit");
 
-hero.addEventListener(
-  "pointermove",
-  function(e){
+hero.addEventListener("pointermove",(e)=>{
 
-    const rect =
-      hero.getBoundingClientRect();
+  const x =
+    (e.clientX / window.innerWidth - .5);
 
-    const x =
-      (e.clientX -
-      rect.left -
-      rect.width/2)
-      / rect.width;
+  const y =
+    (e.clientY / window.innerHeight - .5);
 
-    const y =
-      (e.clientY -
-      rect.top -
-      rect.height/2)
-      / rect.height;
+  heroInner.style.transform =
+    `translate(${x*12}px,${y*12}px)`;
+
+  heroOrbit.style.transform =
+    `translate(calc(-50% + ${x*25}px),calc(-50% + ${y*25}px))`;
+
+});
 
 
-    content.style.transform =
-      `translate3d(
-        ${x*14}px,
-        ${y*10}px,
-        0
-      )`;
+hero.addEventListener("pointerleave",()=>{
+
+  heroInner.style.transform="";
+
+  heroOrbit.style.transform=
+    "translate(-50%,-50%)";
+
+});
 
 
-    cards.forEach(
-      (card,index)=>{
+/* =========================
+   MOBILE TOUCH MOVEMENT
+========================= */
 
-        const depth =
-          (index+1)*1.5;
+let touchX=0;
+let touchY=0;
 
-        card.style.marginLeft =
-          `${-60 + x*depth}px`;
+window.addEventListener("touchmove",(e)=>{
 
-        card.style.marginTop =
-          `${-95 + y*depth}px`;
+  if(!e.touches[0]) return;
+
+  touchX=e.touches[0].clientX;
+  touchY=e.touches[0].clientY;
+
+});
+
+
+/* =========================
+   REVEAL ON SCROLL
+========================= */
+
+const worlds =
+  document.querySelectorAll(".world");
+
+const observer =
+  new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+      if(entry.isIntersecting){
+
+        entry.target.style.opacity="1";
+        entry.target.style.transform="translateY(0)";
 
       }
-    );
-
-  }
-);
-
-
-/* =====================================================
-   TOUCH RESET
-===================================================== */
-
-hero.addEventListener(
-  "pointerleave",
-  function(){
-
-    content.style.transform="";
-
-    cards.forEach(card=>{
-
-      card.style.marginLeft="";
-      card.style.marginTop="";
 
     });
 
-  }
-);
+  },{
+    threshold:.15
+  });
+
+
+worlds.forEach(world=>{
+
+  world.style.opacity="0";
+  world.style.transform="translateY(40px)";
+  world.style.transition=
+    "opacity 1s ease, transform 1s ease";
+
+  observer.observe(world);
+
+});
+
+
+/* =========================
+   CLICK RIPPLE
+========================= */
+
+document.addEventListener("click",(e)=>{
+
+  const ripple =
+    document.createElement("div");
+
+  ripple.style.position="fixed";
+  ripple.style.left=e.clientX+"px";
+  ripple.style.top=e.clientY+"px";
+  ripple.style.width="10px";
+  ripple.style.height="10px";
+  ripple.style.border=
+    "1px solid rgba(205,145,255,.8)";
+  ripple.style.borderRadius="50%";
+  ripple.style.pointerEvents="none";
+  ripple.style.zIndex="9998";
+
+  document.body.appendChild(ripple);
+
+  ripple.animate([
+    {
+      transform:"translate(-50%,-50%) scale(1)",
+      opacity:1
+    },
+    {
+      transform:"translate(-50%,-50%) scale(10)",
+      opacity:0
+    }
+  ],{
+    duration:700,
+    easing:"ease-out"
+  }).onfinish=()=>{
+    ripple.remove();
+  };
+
+});
 
 </script>
 
 </body>
-   </html>
+</html>
